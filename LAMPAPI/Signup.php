@@ -54,13 +54,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"success": false,"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
 	function returnWithInfo()
 	{
-		$retValue = '{"success": true,"error":""}';
+		$retValue = '{"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
