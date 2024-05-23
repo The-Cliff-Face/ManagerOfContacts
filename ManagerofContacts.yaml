@@ -1,0 +1,343 @@
+---
+swagger: "2.0"
+info:
+  description: COP4331 Team 6 Manager of Contacts Project
+  version: 1.0.0
+  title: ManagerOfContacts
+  contact:
+    email: 4331throwawayteam6@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: managerofcontacts.xyz
+basePath: /LAMPAPI
+schemes:
+- http
+paths:
+  /Login.php:
+    post:
+      tags:
+      - User
+      summary: Attempt to login the user with the specified username/password
+      description: Response code does not indicate validity of login info (you can get HTTP 200 even if the user is not found)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: loginInfo
+        description: username/password combination (username is called 'login')
+        required: false
+        schema:
+          $ref: '#/definitions/loginInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+  /Signup.php:
+    post:
+      tags:
+      - User
+      summary: Create a user account with the specified full account info
+      description: "Response code does not indicate uniqueness of requested username (you can get HTTP 200 even if the requested username is not available). Also, Signup.php does NOT give the user's ID."
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: signupInfo
+        description: user's full name and requested username and password combination
+        required: false
+        schema:
+          $ref: '#/definitions/signupInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_1'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+  /AddContact.php:
+    post:
+      tags:
+      - Change Contacts
+      summary: Add a new contact with the given full information
+      description: No error checking
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: addContactInfo
+        description: "Use 4 pieces of data needed to create a contact (note: checking for valid email/phone must be done client-side with JS), along with user's ID, to add a new contact to the database"
+        required: false
+        schema:
+          $ref: '#/definitions/addContactInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_2'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+  /DeleteContact.php:
+    post:
+      tags:
+      - Change Contacts
+      summary: Delete/remove a contact with the given ID
+      description: required ID may be obtained from searching
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deleteContactInfo
+        description: You only need to supply the ID number of the contact to be deleted. If you supply an ID that isn't in the database then nothing happens
+        required: false
+        schema:
+          $ref: '#/definitions/deleteContactInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_3'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+  /EditContact.php:
+    post:
+      tags:
+      - Change Contacts
+      summary: Modify the details of a contact in-place
+      description: Requires contact ID (obtained by searching) and new info
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: editContactInfo
+        description: "Use 4 pieces of data needed to create a contact (note: checking for valid email/phone must be done client-side with JS), along with contacts's ID. Update the contact to the newly supplied information"
+        required: false
+        schema:
+          $ref: '#/definitions/editContactInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_3'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+  /SearchContact.php:
+    post:
+      tags:
+      - Search Contacts
+      summary: Find all matches of the specified search query in the given user's contact list
+      description: "Returns a JSON array of all matches, giving full info of each contact"
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: searchInfo
+        description: "Lookup provided search string among contacts associated with the given user ID. Will only match to contact's first or last name, NOT to email or phone numbers."
+        required: false
+        schema:
+          $ref: '#/definitions/searchInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_4'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
+definitions:
+  editContactInfo:
+    type: object
+    required:
+    - contactId
+    - email
+    - firstName
+    - lastName
+    - phone
+    properties:
+      firstName:
+        type: string
+        example: FirstName
+      lastName:
+        type: string
+        example: LastName
+      phone:
+        type: string
+        example: 123-456-7890
+      email:
+        type: string
+        example: hello@world.com
+      contactId:
+        type: integer
+        example: 123
+        description: Determined by code and not made up by the user
+  deleteContactInfo:
+    type: object
+    required:
+    - contactId
+    properties:
+      contactId:
+        type: integer
+        example: 123
+        description: Determined by code and not made up by the user
+  inline_response_200_4_results:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 0
+      firstName:
+        type: string
+        example: ""
+      lastName:
+        type: string
+        example: ""
+      phone:
+        type: string
+        example: ""
+      email:
+        type: string
+        example: ""
+  searchInfo:
+    type: object
+    required:
+    - search
+    - userId
+    properties:
+      search:
+        type: string
+        example: John
+      userId:
+        type: integer
+        example: 11
+        description: Determined by code and not made up by the user
+  loginInfo:
+    type: object
+    required:
+    - login
+    - password
+    properties:
+      login:
+        type: string
+        example: SuperCoolDude
+      password:
+        type: string
+        example: SuperSecretPassword
+  inline_response_200_1:
+    type: object
+    properties:
+      error:
+        type: string
+        example: Login Not Available
+        description: "error will be blank upon successful creation of account, or will state 'Login Not Available' when the given username/login is already found in the database. The API does NOT care about duplication of passwords"
+  inline_response_200:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+        description: ID of user that was successfully logged in
+      firstName:
+        type: string
+        example: First Name Bobson
+      lastName:
+        type: string
+        example: Last Name Dogbert
+      error:
+        type: string
+        example: ""
+  inline_response_200_2:
+    type: object
+    properties:
+      error:
+        type: string
+        example: ""
+        description: Always blank  except for database issues outside of our control
+  inline_response_200_3:
+    type: object
+    properties:
+      error:
+        type: string
+        example: ""
+        description: Always blank except for database issues outside of our control
+  inline_response_200_4:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/inline_response_200_4_results'
+      error:
+        type: string
+        example: No Records Found
+        description: ""
+  addContactInfo:
+    type: object
+    required:
+    - email
+    - firstName
+    - lastName
+    - phone
+    - userId
+    properties:
+      firstName:
+        type: string
+        example: FirstName
+      lastName:
+        type: string
+        example: LastName
+      phone:
+        type: string
+        example: 123-456-7890
+      email:
+        type: string
+        example: hello@world.com
+      userId:
+        type: integer
+        example: 11
+        description: Determined by code and not made up by the user
+  signupInfo:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - login
+    - password
+    properties:
+      firstName:
+        type: string
+        example: Doofenschmirtz
+      lastName:
+        type: string
+        example: McGee
+      login:
+        type: string
+        example: FastAndBulbous_1337
+      password:
+        type: string
+        example: SuperSecretPassword
