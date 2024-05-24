@@ -1,4 +1,5 @@
-body {
+body 
+{
     /* The URL is relative to the CSS file location */
     background-image: url('images/beach.png');
     background-size: cover; /* This will scale the image to cover the entire background */
@@ -14,12 +15,109 @@ body {
     padding: 15%
     
 }
-.ctn{
+
+
+.form-container
+{
+    justify-content: center;
+    display:flex;
+    align-items: center;
+    width:100%;
+}
+
+.form-group
+{
+    margin-bottom: 1.5rem;
+    
+}
+
+.form-box
+{
+    background-color: #FF9F2D;
+    color:aliceblue;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 50px 50px 30px  rgba(0,0,0,0.1);
+    width: 400px;
+    text-align: center;
+
+}
+
+.form-group input
+{
+    width: 75%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.form-group img
+{
+    margin-left: 0.01rem;
+    height: 1.5rem;
+    display: inline-block;
+}
+.form-group button
+{
+    text-align: center;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    margin-top:1rem;
+    margin-bottom:0;
+    font-size: 1rem;
+    background: #000000;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.form-group button:hover
+{
+    background-color: #555555;
+}
+
+#loginResult
+{
+    border-radius: 10px;
+    padding: 0.75rem;
+    width:100%;
+    color:#004f56;
+    font-size: 1rem;
+    font-family: 'Outfit';
+}
+
+#submission-box.invalid
+{
+    animation: wiggle .5s linear;
+}
+
+@keyframes wiggle
+{
+    5%, 41% {
+        -webkit-transform: translateX(-10px);
+    }
+    10%, 58% {
+        -webkit-transform: translateX(15px);
+    }
+    65% {
+        -webkit-transform: translateX(-5px);
+    }
+    22% {
+        -webkit-transform: translateX(5px);
+    }
+    0%, 100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+
+.ctn
+{
     padding: 5px 25px;
     background: #000000;
     border-radius: 15px;
     color: rgb(255, 255, 255);
-    
+    font-family: "Outfit";
     text-decoration: none;
 }
 .wrapper
@@ -40,7 +138,8 @@ body {
 {
     font-size: 3rem;
 }
-.login{
+.login
+{
  
     padding: 10px 20px;
     border-radius: 20px;
