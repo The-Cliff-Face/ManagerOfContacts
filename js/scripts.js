@@ -32,7 +32,7 @@ function doLogin()
                 if( userId < 1 )
                 {
                     document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-                    document.getElementById("submission-box").addClass("invalid");
+                    document.getElementById("submission-box").classList.add("invalid");
                     return;
                 }
         
