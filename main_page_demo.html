@@ -1,0 +1,43 @@
+<!-- This page is just a demo of how we can do CRUD operations with the API -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Demo</title>
+</head>
+
+<body>
+  <label>
+    Enter the information for a new contact:
+      <br />
+      <input type="text" id="addFirstNameInput" placeholder="First name" required/>
+      <br />
+      <input type="text" id="addLastNameInput" placeholder="Last name" required/>
+      <br />
+      <input type="text" id="addPhoneInput" placeholder="Phone number" required/>
+      <br />
+      <input type="text" id="addEmailInput" placeholder="Email address" required/>
+      <br />
+  <button type="submit" id="addButton">Add Contact</button>
+  </label>
+
+  <br />
+  <br />
+
+  <label for="searchInput">Search:</label>
+  <input type="search" id="searchInput" placeholder="First or last name" required/>
+  <button type="submit" id="searchButton">Submit</button>
+
+  <br />
+  <br />
+
+  <!-- This div is used in the JS to show search results, along with Delete/Edit buttons -->
+  <div id="contactsContainer"></div>
+
+  <script src="js/main_page_demo.js"></script>
+</body>
+
+</html>
