@@ -70,19 +70,13 @@ function register()
     let firstname = document.getElementById("contact-firstname").value;
     let lastname = document.getElementById("contact-lastname").value;
     let password = document.getElementById("contact-password").value;
-    /*
-    const fieldObj = {
-        username,
-        firstname,
-        lastname,
-    }
-    if (preventSQLInjection(fieldObj)) {
-        console.log("Illegal Input!");
+    
+    if (!signupCheck(username,firstname,lastname,password)) {
         const errorMessage = document.getElementById('signupResult');
-        errorMessage.textContent = "We do not allow certain keywords";
+        errorMessage.textContent = "Requirements not satisfied";
+        console.log("failed");
         return;
     }
-    */
     
     var hash = md5(password);
     
@@ -131,10 +125,15 @@ function validatePassword(password) {
 
 
 // TODO: finish this function
-function signupCheck(username,firstname,lastname,password)
+function signupCheck(username, firstname, lastname, password) 
 {
-    return true;
+    if (username.trim() === "" || firstname.trim() === "" || lastname.trim() === "" || password.trim() === "") {
+        return false; 
+    } else {
+        return true;
+    }
 }
+
 
 function preventSQLInjection(fieldObj)
 {
