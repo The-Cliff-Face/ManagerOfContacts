@@ -116,7 +116,9 @@ function register()
     }
     catch (err)
     {
-        document.getElementById("signUpResult").innerHTML = err.message;
+        const errorMessage = document.getElementById('signupResult');
+        errorMessage.textContent = err.message;
+        //document.getElementById("signUpResult").innerHTML = err.message;
     }
     
 }
