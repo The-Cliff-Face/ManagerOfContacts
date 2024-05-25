@@ -41,7 +41,7 @@ function doLogin()
 
                 saveCookie();
                 // change href to the next page
-                window.location.href = "contacts.html";
+                window.location.href = "main_page_demo.html";
             }
         };
         xhr.send(jsonPayload);
@@ -59,26 +59,41 @@ function goToSignup()
 
 function register()
 {
+    if (!requirementsSatisfied) {
+        const errorMessage = document.getElementById('signupResult');
+        errorMessage.textContent = "Requirements not satisfied";
+        console.log("failed");
+        return;
+    }
+
     let username = document.getElementById("contact-username").value;
     let firstname = document.getElementById("contact-firstname").value;
     let lastname = document.getElementById("contact-lastname").value;
     let password = document.getElementById("contact-password").value;
-   
-    
-    if (!signupCheck(username,firstname,lastname,password)) {
+
+    const fieldObj = {
+        username,
+        firstname,
+        lastname,
+    }
+    if (preventSQLInjection(fieldObj)) {
+        console.log("Illegal Input!");
+        const errorMessage = document.getElementById('signupResult');
+        errorMessage.textContent = "We do not allow certain keywords";
         return;
     }
     
     var hash = md5(password);
     
     let tmp = {
-            firstName: firstName,
-            lastName: lastName,
+            firstName: firstname,
+            lastName: lastname,
             login: username,
             password: hash
         };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase  + "/Signup." + extension;
+    let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try
@@ -90,6 +105,7 @@ function register()
                 let jsonObject = JSON.parse( xhr.responseText );
                 userId = jsonObject.id;
                 document.getElementById("signUpResult").innerHTML = "Success";
+                window.location.href = "login.html";
                 firstName = jsonObject.firstname;
                 lastName = jsonObject.lastname;
                 saveCookie();
@@ -105,16 +121,28 @@ function register()
     
 }
 
+function validatePassword(password) {
+    const regex = /^(?=.*[0-9]).{8,}$/;
+    return regex.test(password);
+}
+
 
 // TODO: finish this function
 function signupCheck(username,firstname,lastname,password)
 {
     return true;
 }
-// TODO: finish this function
-function preventSQLInjection(field)
+
+function preventSQLInjection(fieldObj)
 {
-    return true;
+    let result = false;
+    const SQLCommands = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|CREATE|REPLACE|RENAME)\b/i;
+    const illegalCharacters = /['";\-\-%]/;
+
+    Object.values(fieldObj).forEach(value => {
+        result |= (SQLCommands.test(value) || illegalCharacters.test(value));
+    }); 
+    return result;
 }
 
 
