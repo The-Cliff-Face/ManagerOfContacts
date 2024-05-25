@@ -123,6 +123,8 @@ label {
     border: 1px solid #ccc;
     box-shadow: inset 2px 2px 2px #ccc;
     border-radius: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-group img {
@@ -158,6 +160,32 @@ label {
     color: #004f56;
     font-size: 1rem;
     font-family: 'Outfit';
+}
+
+#signupResult {
+    border-radius: 10px;
+    padding: 0.75rem;
+    width: 100%;
+    margin-bottom:2px;
+    color: #004f56;
+    font-size: 2rem;
+    font-family: 'Outfit';
+}
+
+
+.error-message {
+    font-size: 1rem;
+    background-color: #f5f5f5e9;
+    border-radius: 5px;
+    padding: 0.75rem;
+    margin-top: 2px;
+    display:none;
+    width: fit-content;
+    max-width: 100%;
+    color:#ff0000;
+    font-family: 'Outfit';
+    margin: 2px auto 0;
+    text-align: center;
 }
 
 #submission-box.invalid {
