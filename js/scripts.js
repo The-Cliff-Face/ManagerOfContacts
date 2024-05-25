@@ -104,7 +104,7 @@ function register()
             {
                 let jsonObject = JSON.parse( xhr.responseText );
                 userId = jsonObject.id;
-                document.getElementById("signUpResult").innerHTML = "Success";
+                //document.getElementById("signUpResult").innerHTML = "Success";
                 window.location.href = "login.html";
                 firstName = jsonObject.firstname;
                 lastName = jsonObject.lastname;
