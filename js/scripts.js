@@ -70,7 +70,7 @@ function register()
     let firstname = document.getElementById("contact-firstname").value;
     let lastname = document.getElementById("contact-lastname").value;
     let password = document.getElementById("contact-password").value;
-
+    /*
     const fieldObj = {
         username,
         firstname,
@@ -82,6 +82,7 @@ function register()
         errorMessage.textContent = "We do not allow certain keywords";
         return;
     }
+    */
     
     var hash = md5(password);
     
