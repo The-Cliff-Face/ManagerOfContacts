@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <script src="js/scripts.js"> </script>
+    <script src="js/md5.js"> </script>
+</head>
+
+<body>
+    <div class="contacts-container">
+        <div class="search-bar">
+            <label>
+                Search:
+                <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
+                    id="searchButton"><i class="fa fa-search"></i></button>
+            </label>
+        </div>
+
+        <table class="header">
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+        </table>
+        <table class="rows">
+            <tr>
+                <td><input type="text" id="addFirstNameInput" placeholder="First name" required /></td>
+                <td><input type="text" id="addLastNameInput" placeholder="Last name" required /></td>
+                <td><input type="text" id="addPhoneInput" placeholder="Phone number" required /></td>
+                <td><input type="text" id="addEmailInput" placeholder="Email address" required /></td>
+                <td><button type="button" id="addButton">Add Contact</button></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td>sample</td>
+                <td></td>
+            </tr>
+            <!-- Append search results and edit/delete buttons -->
+            <div id="contactsContainer"></div>
+        </table>
+
+    </div>
+</body>
+
+</html>
