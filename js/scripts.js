@@ -203,8 +203,8 @@ function doEdit(firstName, lastName, phone, email, contactId) {
     }
 }
 
-// Search Button
-document.getElementById("searchButton").onclick = function () {
+
+function search() {
     // read in the search query from the input text box
     let searchString = document.getElementById("searchInput").value;
     // clear any previous search results
@@ -296,10 +296,10 @@ document.getElementById("searchButton").onclick = function () {
     catch (err) {
         console.log(err);
     }
-};
+}
 
-//AddContact part
-document.getElementById("addButton").onclick = function () {
+
+function addContact() {
     let firstName = document.getElementById("addFirstNameInput").value;
     let lastName = document.getElementById("addLastNameInput").value;
     let phone = document.getElementById("addPhoneInput").value;
@@ -320,4 +320,5 @@ document.getElementById("addButton").onclick = function () {
     catch (err) {
         console.log(err);
     }
-};
+}
+
