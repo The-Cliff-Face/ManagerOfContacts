@@ -145,6 +145,8 @@ function preventSQLInjection(fieldObj) {
 }
 
 
+
+
 function saveCookie(user_cookie) {
     let minutes = 20;
     let date = new Date();
@@ -225,6 +227,66 @@ function doEdit(firstName, lastName, phone, email, contactId) {
     catch (err) {
         console.log(err);
     }
+}
+
+
+function debug_search() {
+    const contactsContainer = document.getElementById("contactsContainer");
+    let contactItem = document.createElement("tr");
+    let firstNameTd = document.createElement("td");
+    let lastNameTd = document.createElement("td");
+    let phoneTd = document.createElement("td");
+    let emailTd = document.createElement("td");
+    let buttons = document.createElement("td");
+
+    firstNameTd.textContent = 'Johnathan';
+    lastNameTd.textContent = 'Doe';
+    phoneTd.textContent = '123-456-7890';
+    emailTd.textContent = 'john_doe@ucf.edu';
+
+    contactItem.appendChild(firstNameTd);
+    contactItem.appendChild(lastNameTd);
+    contactItem.appendChild(phoneTd);
+    contactItem.appendChild(emailTd);
+
+    deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", () => {
+        //doDelete(item.id);
+        contactItem.remove();
+    });
+    buttons.appendChild(deleteButton);
+
+    // make the edit button for this contact.
+    editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.addEventListener("click", () => {
+        // allow the user to edit the text in the various fields.
+        firstNameTd.setAttribute("contenteditable", "true");
+        lastNameTd.setAttribute("contenteditable", "true");
+        phoneTd.setAttribute("contenteditable", "true");
+        emailTd.setAttribute("contenteditable", "true");
+
+        // create a button to save the user's edits.
+        saveButton = document.createElement("button");
+        saveButton.innerText = "Save Edits";
+        saveButton.addEventListener("click", () => {
+            //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+
+            // now that the editing is done, go back to normal
+            firstNameTd.setAttribute("contenteditable", "false");
+            lastNameTd.setAttribute("contenteditable", "false");
+            phoneTd.setAttribute("contenteditable", "false");
+            emailTd.setAttribute("contenteditable", "false");
+            saveButton.remove();
+        });
+        buttons.appendChild(saveButton);
+        
+    });
+    buttons.appendChild(editButton);
+    contactItem.appendChild(buttons);
+    contactsContainer.appendChild(contactItem);
+
 }
 
 
