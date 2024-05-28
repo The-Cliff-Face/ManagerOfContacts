@@ -151,6 +151,14 @@ function saveCookie(user_cookie) {
     date.setTime(date.getTime() + (minutes * 60 * 1000));
     console.log(userId);
     document.cookie = "firstName=" + user_cookie[firstName] + ",lastName=" + user_cookie[lastName] + ",userId=" + user_cookie["id"] + ";expires=" + date.toGMTString();
+    console.log(document.cookie);
+}
+function getUserId() {
+    let data = document.cookie;
+    let splits = data.split(",");
+    let token = splits[2].split("=");
+    let userId = parseInt(token[1]);
+    return userId;
 }
 
 function readCookie() {
@@ -224,7 +232,7 @@ function search() {
     let searchString = document.getElementById("searchInput").value;
     // clear any previous search results
     contactsContainer.innerHTML = "";
-    let userId = readCookie;
+    let userId = getUserId();
     if (userId < 0) { console.log("failed"); return;}
 
     let tmp = { search: searchString, userId: userId };
@@ -317,7 +325,7 @@ function search() {
 
 
 function addContact() {
-    let userId = readCookie();
+    let userId = getUserId();
     if (userId < 0) { console.log("failed"); return;}
 
     let firstName = document.getElementById("addFirstNameInput").value;
