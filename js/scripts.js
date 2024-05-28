@@ -335,8 +335,8 @@ function search() {
 
                         firstNameTd.textContent = `${item.firstName}`;
                         lastNameTd.textContent = `${item.lastName}`;
-                        phoneTd.textContent = `${item.email}`;
-                        emailTd.textContent = `${item.phone}`;
+                        phoneTd.textContent = `${item.phone}`;
+                        emailTd.textContent = `${item.email}`;
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
