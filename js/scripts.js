@@ -161,10 +161,13 @@ function readCookie() {
 
     if (userId < 0) {
         window.location.href = "index.html";
+        return -1;
     }
     else {
         //        document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+        return userId;
     }
+    return -1;
 }
 
 /* Contacts Page functions (from demo) */
@@ -209,6 +212,8 @@ function search() {
     let searchString = document.getElementById("searchInput").value;
     // clear any previous search results
     contactsContainer.innerHTML = "";
+    let userId = readCookie;
+    if (userId < 0) { console.log("failed"); return;}
 
     let tmp = { search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -300,6 +305,9 @@ function search() {
 
 
 function addContact() {
+    let userId = readCookie();
+    if (userId < 0) { console.log("failed"); return;}
+    
     let firstName = document.getElementById("addFirstNameInput").value;
     let lastName = document.getElementById("addLastNameInput").value;
     let phone = document.getElementById("addPhoneInput").value;
