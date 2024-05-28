@@ -149,10 +149,11 @@ function saveCookie(user_cookie) {
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + (minutes * 60 * 1000));
-    console.log(userId);
-    document.cookie = "firstName=" + user_cookie[firstName] + ",lastName=" + user_cookie[lastName] + ",userId=" + user_cookie["id"] + ";expires=" + date.toGMTString();
+    console.log(user_cookie['id']);
+    document.cookie = "firstName=" + user_cookie["firstName"] + ",lastName=" + user_cookie["lastName"] + ",userId=" + user_cookie["id"] + ";expires=" + date.toGMTString() + "path=/";
     console.log(document.cookie);
 }
+
 function getUserId() {
     let data = document.cookie;
     let splits = data.split(",");
