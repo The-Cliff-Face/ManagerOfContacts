@@ -169,6 +169,12 @@ label {
     font-family: 'Outfit';
 }
 
+#incorrrectPassword
+{
+    border-radius: 10px;
+    border-color: red;
+}
+
 #signupResult {
     border-radius: 10px;
     padding: 0.75rem;
