@@ -30,11 +30,16 @@ function doLogin() {
                     document.getElementById("submission-box").classList.add("invalid");
                     return;
                 }
-
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
+                user_cookie = {
+                    id:userId,
+                    firstName: firstName,
+                    lastName: lastName,
+                }
 
-                saveCookie();
+
+                saveCookie(user_cookie);
                 // change href to the next page
                 window.location.href = "contacts.html";
             }
@@ -90,9 +95,15 @@ function register() {
                 userId = jsonObject.id;
                 //document.getElementById("signUpResult").innerHTML = "Success";
                 window.location.href = "login.html";
-                firstName = jsonObject.firstname;
-                lastName = jsonObject.lastname;
-                saveCookie();
+                firstName = jsonObject.firstName;
+                lastName = jsonObject.lastName;
+                user_cookie = {
+                    id:userId,
+                    firstName: firstName,
+                    lastName: lastName,
+                }
+                
+                saveCookie(user_cookie);
             }
         }
         xhr.send(jsonPayload);
@@ -134,11 +145,12 @@ function preventSQLInjection(fieldObj) {
 }
 
 
-function saveCookie() {
+function saveCookie(user_cookie) {
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + (minutes * 60 * 1000));
-    document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+    console.log(userId);
+    document.cookie = "firstName=" + user_cookie[firstName] + ",lastName=" + user_cookie[lastName] + ",userId=" + user_cookie["id"] + ";expires=" + date.toGMTString();
 }
 
 function readCookie() {
@@ -307,7 +319,7 @@ function search() {
 function addContact() {
     let userId = readCookie();
     if (userId < 0) { console.log("failed"); return;}
-    
+
     let firstName = document.getElementById("addFirstNameInput").value;
     let lastName = document.getElementById("addLastNameInput").value;
     let phone = document.getElementById("addPhoneInput").value;
