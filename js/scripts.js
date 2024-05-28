@@ -365,7 +365,7 @@ function search() {
                             // create a button to save the user's edits.
                             if (document.querySelector("#saveButton") == null) {
                                 saveButton = document.createElement("button");
-                                saveButton.setAttribute("id","saveButton");
+                                saveButt.setAttribute("id","saveButton");
                                 saveButton.innerText = "Save Edits";
                                 saveButton.addEventListener("click", () => {
                                     doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
