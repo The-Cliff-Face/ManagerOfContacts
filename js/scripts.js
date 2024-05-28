@@ -231,7 +231,7 @@ function doEdit(firstName, lastName, phone, email, contactId) {
 
 
 function debug_search() {
-    const contactsContainer = document.getElementById("contactsContainer");
+    const rows = document.getElementById("main_table");
     let contactItem = document.createElement("tr");
     let firstNameTd = document.createElement("td");
     let lastNameTd = document.createElement("td");
@@ -268,24 +268,29 @@ function debug_search() {
         emailTd.setAttribute("contenteditable", "true");
 
         // create a button to save the user's edits.
-        saveButton = document.createElement("button");
-        saveButton.innerText = "Save Edits";
-        saveButton.addEventListener("click", () => {
-            //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
-
-            // now that the editing is done, go back to normal
-            firstNameTd.setAttribute("contenteditable", "false");
-            lastNameTd.setAttribute("contenteditable", "false");
-            phoneTd.setAttribute("contenteditable", "false");
-            emailTd.setAttribute("contenteditable", "false");
-            saveButton.remove();
-        });
-        buttons.appendChild(saveButton);
+        if (document.querySelector("#saveButton") == null) {
+            saveButton = document.createElement("button");
+            saveButton.setAttribute("id","saveButton");
+            saveButton.innerText = "Save Edits";
+            saveButton.addEventListener("click", () => {
+                //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+    
+                // now that the editing is done, go back to normal
+                firstNameTd.setAttribute("contenteditable", "false");
+                lastNameTd.setAttribute("contenteditable", "false");
+                phoneTd.setAttribute("contenteditable", "false");
+                emailTd.setAttribute("contenteditable", "false");
+                saveButton.remove();
+            });
+            buttons.appendChild(saveButton);
+        }
+        
         
     });
     buttons.appendChild(editButton);
     contactItem.appendChild(buttons);
-    contactsContainer.appendChild(contactItem);
+    //contactsContainer.appendChild(contactItem);
+    rows.appendChild(contactItem);
 
 }
 
@@ -314,7 +319,8 @@ function search() {
                 // id will be 0 if there are no records found
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
-                    const contactsContainer = document.getElementById("contactsContainer");
+                    //const contactsContainer = document.getElementById("contactsContainer");
+                    const rows = document.getElementById("main_table");
 
                     searchResults.forEach(item => {
                         // for every item, creates a new table row containing 4 table data cells (for the 4 parts of a contact.)
@@ -329,8 +335,8 @@ function search() {
 
                         firstNameTd.textContent = `${item.firstName}`;
                         lastNameTd.textContent = `${item.lastName}`;
-                        phoneTd.textContent = `${item.email}`;
-                        emailTd.textContent = `${item.phone}`;
+                        phoneTd.textContent = `${item.phone}`;
+                        emailTd.textContent = `${item.email}`;
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
@@ -357,24 +363,28 @@ function search() {
                             emailTd.setAttribute("contenteditable", "true");
 
                             // create a button to save the user's edits.
-                            saveButton = document.createElement("button");
-                            saveButton.innerText = "Save Edits";
-                            saveButton.addEventListener("click", () => {
-                                doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+                            if (document.querySelector("#saveButton") == null) {
+                                saveButton = document.createElement("button");
+                                saveButton.setAttribute("id","saveButton");
+                                saveButton.innerText = "Save Edits";
+                                saveButton.addEventListener("click", () => {
+                                    doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
 
                                 // now that the editing is done, go back to normal
-                                firstNameTd.setAttribute("contenteditable", "false");
-                                lastNameTd.setAttribute("contenteditable", "false");
-                                phoneTd.setAttribute("contenteditable", "false");
-                                emailTd.setAttribute("contenteditable", "false");
-                                saveButton.remove();
-                            });
-                            buttons.appendChild(saveButton);
+                                    firstNameTd.setAttribute("contenteditable", "false");
+                                    lastNameTd.setAttribute("contenteditable", "false");
+                                    phoneTd.setAttribute("contenteditable", "false");
+                                    emailTd.setAttribute("contenteditable", "false");
+                                    saveButton.remove();
+                                });
+                                buttons.appendChild(saveButton);
+                            }
+                            
 
                         });
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
-                        contactsContainer.appendChild(contactItem);
+                        rows.appendChild(contactItem);
                     });
                 }
             }
