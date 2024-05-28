@@ -169,9 +169,10 @@ label {
     font-family: 'Outfit';
 }
 
-#incorrrectPassword
+#incorrectPassword
 {
     border-radius: 10px;
+    width: 100%;
     border-color: red;
 }
 
