@@ -20,7 +20,7 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton"><i class="fa fa-search"></i></button>
+                    id="searchButton" onclick="search();"><i class="fa fa-search"></i></button>
             </label>
         </div>
 
@@ -39,7 +39,7 @@
                 <td><input type="text" id="addLastNameInput" placeholder="Last name" required /></td>
                 <td><input type="text" id="addPhoneInput" placeholder="Phone number" required /></td>
                 <td><input type="text" id="addEmailInput" placeholder="Email address" required /></td>
-                <td><button type="button" id="addButton">Add Contact</button></td>
+                <td><button type="button" id="addButton" onclick="addContact();">Add Contact</button></td>
             </tr>
             <tr></tr>
             <tr>
