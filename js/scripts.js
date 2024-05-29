@@ -30,11 +30,16 @@ function doLogin() {
                     document.getElementById("submission-box").classList.add("invalid");
                     return;
                 }
-
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
+                user_cookie = {
+                    id:userId,
+                    firstName: firstName,
+                    lastName: lastName,
+                }
 
-                saveCookie();
+
+                saveCookie(user_cookie);
                 // change href to the next page
                 window.location.href = "contacts.html";
             }
@@ -90,9 +95,15 @@ function register() {
                 userId = jsonObject.id;
                 //document.getElementById("signUpResult").innerHTML = "Success";
                 window.location.href = "login.html";
-                firstName = jsonObject.firstname;
-                lastName = jsonObject.lastname;
-                saveCookie();
+                firstName = jsonObject.firstName;
+                lastName = jsonObject.lastName;
+                user_cookie = {
+                    id:userId,
+                    firstName: firstName,
+                    lastName: lastName,
+                }
+                
+                saveCookie(user_cookie);
             }
         }
         xhr.send(jsonPayload);
@@ -134,11 +145,23 @@ function preventSQLInjection(fieldObj) {
 }
 
 
-function saveCookie() {
+
+
+function saveCookie(user_cookie) {
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + (minutes * 60 * 1000));
-    document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+    console.log(user_cookie['id']);
+    document.cookie = "firstName=" + user_cookie["firstName"] + ",lastName=" + user_cookie["lastName"] + ",userId=" + user_cookie["id"] + ";expires=" + date.toGMTString() + "path=/";
+    console.log(document.cookie);
+}
+
+function getUserId() {
+    let data = document.cookie;
+    let splits = data.split(",");
+    let token = splits[2].split("=");
+    let userId = parseInt(token[1]);
+    return userId;
 }
 
 function readCookie() {
@@ -161,10 +184,13 @@ function readCookie() {
 
     if (userId < 0) {
         window.location.href = "index.html";
+        return -1;
     }
     else {
         //        document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+        return userId;
     }
+    return -1;
 }
 
 /* Contacts Page functions (from demo) */
@@ -203,12 +229,79 @@ function doEdit(firstName, lastName, phone, email, contactId) {
     }
 }
 
-// Search Button
-document.getElementById("searchButton").onclick = function () {
+
+function debug_search() {
+    const rows = document.getElementById("main_table");
+    let contactItem = document.createElement("tr");
+    let firstNameTd = document.createElement("td");
+    let lastNameTd = document.createElement("td");
+    let phoneTd = document.createElement("td");
+    let emailTd = document.createElement("td");
+    let buttons = document.createElement("td");
+
+    firstNameTd.textContent = 'Johnathan';
+    lastNameTd.textContent = 'Doe';
+    phoneTd.textContent = '123-456-7890';
+    emailTd.textContent = 'john_doe@ucf.edu';
+
+    contactItem.appendChild(firstNameTd);
+    contactItem.appendChild(lastNameTd);
+    contactItem.appendChild(phoneTd);
+    contactItem.appendChild(emailTd);
+
+    deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", () => {
+        //doDelete(item.id);
+        contactItem.remove();
+    });
+    buttons.appendChild(deleteButton);
+
+    // make the edit button for this contact.
+    editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.addEventListener("click", () => {
+        // allow the user to edit the text in the various fields.
+        firstNameTd.setAttribute("contenteditable", "true");
+        lastNameTd.setAttribute("contenteditable", "true");
+        phoneTd.setAttribute("contenteditable", "true");
+        emailTd.setAttribute("contenteditable", "true");
+
+        // create a button to save the user's edits.
+        if (document.querySelector("#saveButton") == null) {
+            saveButton = document.createElement("button");
+            saveButton.setAttribute("id","saveButton");
+            saveButton.innerText = "Save Edits";
+            saveButton.addEventListener("click", () => {
+                //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+    
+                // now that the editing is done, go back to normal
+                firstNameTd.setAttribute("contenteditable", "false");
+                lastNameTd.setAttribute("contenteditable", "false");
+                phoneTd.setAttribute("contenteditable", "false");
+                emailTd.setAttribute("contenteditable", "false");
+                saveButton.remove();
+            });
+            buttons.appendChild(saveButton);
+        }
+        
+        
+    });
+    buttons.appendChild(editButton);
+    contactItem.appendChild(buttons);
+    //contactsContainer.appendChild(contactItem);
+    rows.appendChild(contactItem);
+
+}
+
+
+function search() {
     // read in the search query from the input text box
     let searchString = document.getElementById("searchInput").value;
     // clear any previous search results
     contactsContainer.innerHTML = "";
+    let userId = getUserId();
+    if (userId < 0) { console.log("failed"); return;}
 
     let tmp = { search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -226,7 +319,8 @@ document.getElementById("searchButton").onclick = function () {
                 // id will be 0 if there are no records found
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
-                    const contactsContainer = document.getElementById("contactsContainer");
+                    //const contactsContainer = document.getElementById("contactsContainer");
+                    const rows = document.getElementById("main_table");
 
                     searchResults.forEach(item => {
                         // for every item, creates a new table row containing 4 table data cells (for the 4 parts of a contact.)
@@ -241,8 +335,8 @@ document.getElementById("searchButton").onclick = function () {
 
                         firstNameTd.textContent = `${item.firstName}`;
                         lastNameTd.textContent = `${item.lastName}`;
-                        phoneTd.textContent = `${item.email}`;
-                        emailTd.textContent = `${item.phone}`;
+                        phoneTd.textContent = `${item.phone}`;
+                        emailTd.textContent = `${item.email}`;
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
@@ -269,24 +363,28 @@ document.getElementById("searchButton").onclick = function () {
                             emailTd.setAttribute("contenteditable", "true");
 
                             // create a button to save the user's edits.
-                            saveButton = document.createElement("button");
-                            saveButton.innerText = "Save Edits";
-                            saveButton.addEventListener("click", () => {
-                                doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+                            if (document.querySelector("#saveButton") == null) {
+                                saveButton = document.createElement("button");
+                                saveButton.setAttribute("id","saveButton");
+                                saveButton.innerText = "Save Edits";
+                                saveButton.addEventListener("click", () => {
+                                    doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
 
                                 // now that the editing is done, go back to normal
-                                firstNameTd.setAttribute("contenteditable", "false");
-                                lastNameTd.setAttribute("contenteditable", "false");
-                                phoneTd.setAttribute("contenteditable", "false");
-                                emailTd.setAttribute("contenteditable", "false");
-                                saveButton.remove();
-                            });
-                            buttons.appendChild(saveButton);
+                                    firstNameTd.setAttribute("contenteditable", "false");
+                                    lastNameTd.setAttribute("contenteditable", "false");
+                                    phoneTd.setAttribute("contenteditable", "false");
+                                    emailTd.setAttribute("contenteditable", "false");
+                                    saveButton.remove();
+                                });
+                                buttons.appendChild(saveButton);
+                            }
+                            
 
                         });
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
-                        contactsContainer.appendChild(contactItem);
+                        rows.appendChild(contactItem);
                     });
                 }
             }
@@ -296,10 +394,13 @@ document.getElementById("searchButton").onclick = function () {
     catch (err) {
         console.log(err);
     }
-};
+}
 
-//AddContact part
-document.getElementById("addButton").onclick = function () {
+
+function addContact() {
+    let userId = getUserId();
+    if (userId < 0) { console.log("failed"); return;}
+
     let firstName = document.getElementById("addFirstNameInput").value;
     let lastName = document.getElementById("addLastNameInput").value;
     let phone = document.getElementById("addPhoneInput").value;
@@ -320,4 +421,5 @@ document.getElementById("addButton").onclick = function () {
     catch (err) {
         console.log(err);
     }
-};
+}
+

@@ -52,6 +52,24 @@ a:hover {
     height: 100%;
 }
 
+.homeButton
+{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border-color: transparent;
+}
+
+.homeButton img
+{
+    height:65px;
+}
+
+.homeButton :hover
+{
+    opacity: 0.8;
+}
 
 /* Field labels */
 label {
@@ -167,6 +185,13 @@ label {
     color: #004f56;
     font-size: 1rem;
     font-family: 'Outfit';
+}
+
+#incorrectPassword
+{
+    border-radius: 10px;
+    width: 100%;
+    border-color: red;
 }
 
 #signupResult {
@@ -388,3 +413,4 @@ footer {
     display: block;
     top: -32%;
 }
+
