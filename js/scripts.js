@@ -75,6 +75,7 @@ function register() {
     if (!requirementsSatisfied) {
         const errorMessage = document.getElementById('signupResult');
         errorMessage.textContent = "Requirements not satisfied";
+        invalidLoginAnimation();
         console.log("failed");
         return;
     }
