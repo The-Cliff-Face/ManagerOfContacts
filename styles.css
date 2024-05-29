@@ -180,7 +180,7 @@ label {
     border-radius: 10px;
     padding: 0.75rem;
     width: 100%;
-    color: #004f56;
+    color: #B50000;
     font-size: 1rem;
     font-family: 'Outfit';
 }
@@ -188,7 +188,7 @@ label {
 #incorrectPassword {
     border-radius: 10px;
     width: 100%;
-    border-color: red;
+    border-color: #B50000;
 }
 
 #signupResult {
@@ -196,8 +196,8 @@ label {
     padding: 0.75rem;
     width: 100%;
     margin-bottom: 2px;
-    color: #004f56;
-    font-size: 2rem;
+    color: #B50000;
+    font-size: 1rem;
     font-family: 'Outfit';
 }
 

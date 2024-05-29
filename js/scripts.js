@@ -5,7 +5,7 @@ const extension = 'php';
 function invalidLoginAnimation() {
     const submissionBox = document.getElementById("submission-box");
     submissionBox.classList.add("invalid");
-    submissionBox.addEventListener("animationend", function() {
+    submissionBox.addEventListener("animationend", function () {
         submissionBox.classList.remove("invalid");
     }, { once: true });
 
@@ -41,7 +41,7 @@ function doLogin() {
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
                 user_cookie = {
-                    id:userId,
+                    id: userId,
                     firstName: firstName,
                     lastName: lastName,
                 }
@@ -52,7 +52,7 @@ function doLogin() {
                 window.location.href = "contacts.html";
             }
         };
-       xhr.send(jsonPayload);
+        xhr.send(jsonPayload);
     }
     catch (err) {
         document.getElementById("loginResult").innerHTML = err.message;
@@ -68,7 +68,7 @@ function clearAllFields() {
     var inputCollection = document.getElementsByTagName("input");
     for (var i = 0; i < inputCollection.length; i++) {
         inputCollection[i].value = "";
-      }   
+    }
 }
 
 function register() {
@@ -114,11 +114,11 @@ function register() {
                         const errorPassword = document.getElementById('confirm-password-result');
                         errorPassword.style.display = "none";
                         errorPassword.textContent = "";
-                        errorMessage.textContent = "User already exists";
+                        errorMessage.textContent = "That username is taken.";
                         clearAllFields();
                         return;
                     }
-                    
+
                 }
                 userId = jsonObject.id;
                 //document.getElementById("signUpResult").innerHTML = "Success";
@@ -126,11 +126,11 @@ function register() {
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
                 user_cookie = {
-                    id:userId,
+                    id: userId,
                     firstName: firstName,
                     lastName: lastName,
                 }
-                
+
                 saveCookie(user_cookie);
             }
         }
@@ -151,7 +151,7 @@ function validateEmail(emailField) {
     return regex.test(emailField);
 }
 
-function validatePhoneNumber(phoneField){ 
+function validatePhoneNumber(phoneField) {
     const regex = /^(\+1\s?)?(\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]?\d{4}$/;
     return regex.test(phoneField);
 }
@@ -262,7 +262,7 @@ function debug_search() {
     clearSearchEntryField();
     const rows = document.getElementById("main_table");
     let contactItem = document.createElement("tr");
-    contactItem.setAttribute("id","search-entry");
+    contactItem.setAttribute("id", "search-entry");
     let firstNameTd = document.createElement("td");
     let lastNameTd = document.createElement("td");
     let phoneTd = document.createElement("td");
@@ -300,11 +300,11 @@ function debug_search() {
         // create a button to save the user's edits.
         if (document.querySelector("#saveButton") == null) {
             saveButton = document.createElement("button");
-            saveButton.setAttribute("id","saveButton");
+            saveButton.setAttribute("id", "saveButton");
             saveButton.innerText = "Save Edits";
             saveButton.addEventListener("click", () => {
                 //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
-    
+
                 // now that the editing is done, go back to normal
                 firstNameTd.setAttribute("contenteditable", "false");
                 lastNameTd.setAttribute("contenteditable", "false");
@@ -314,8 +314,8 @@ function debug_search() {
             });
             buttons.appendChild(saveButton);
         }
-        
-        
+
+
     });
     buttons.appendChild(editButton);
     contactItem.appendChild(buttons);
@@ -326,7 +326,7 @@ function debug_search() {
 
 
 function clearSearchEntryField() {
-    document.querySelectorAll('#search-entry').forEach(function(element) {
+    document.querySelectorAll('#search-entry').forEach(function (element) {
         element.remove();
     });
 }
@@ -337,7 +337,7 @@ function search() {
     // clear any previous search results
     clearSearchEntryField();
     let userId = getUserId();
-    if (userId < 0) { console.log("failed"); return;}
+    if (userId < 0) { console.log("failed"); return; }
 
     let tmp = { search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -361,7 +361,7 @@ function search() {
                     searchResults.forEach(item => {
                         // for every item, creates a new table row containing 4 table data cells (for the 4 parts of a contact.)
                         let contactItem = document.createElement("tr");
-                        contactItem.setAttribute("id","search-entry");
+                        contactItem.setAttribute("id", "search-entry");
                         //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
                         let firstNameTd = document.createElement("td");
@@ -402,12 +402,12 @@ function search() {
                             // create a button to save the user's edits.
                             if (document.querySelector("#saveButton") == null) {
                                 saveButton = document.createElement("button");
-                                saveButton.setAttribute("id","saveButton");
+                                saveButton.setAttribute("id", "saveButton");
                                 saveButton.innerText = "Save Edits";
                                 saveButton.addEventListener("click", () => {
                                     doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
 
-                                // now that the editing is done, go back to normal
+                                    // now that the editing is done, go back to normal
                                     firstNameTd.setAttribute("contenteditable", "false");
                                     lastNameTd.setAttribute("contenteditable", "false");
                                     phoneTd.setAttribute("contenteditable", "false");
@@ -416,7 +416,7 @@ function search() {
                                 });
                                 buttons.appendChild(saveButton);
                             }
-                            
+
 
                         });
                         buttons.appendChild(editButton);
@@ -436,7 +436,7 @@ function search() {
 
 function addContact() {
     let userId = getUserId();
-    if (userId < 0) { console.log("failed"); return;}
+    if (userId < 0) { console.log("failed"); return; }
 
 
     let firstName = document.getElementById("addFirstNameInput").value;
