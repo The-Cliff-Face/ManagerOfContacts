@@ -13,22 +13,22 @@
     <script src="js/scripts.js"> </script>
     <script src="js/md5.js"> </script>
     <script>
-         document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
             const errorEmail = document.getElementById('addEmailResult');
             const errorPhone = document.getElementById('addPhoneResult');
             const phoneField = document.getElementById('addPhoneInput');
-            if (emailInput && errorEmail && phoneField){
-                emailInput.addEventListener('input', function() {
+            if (emailInput && errorEmail && phoneField) {
+                emailInput.addEventListener('input', function () {
                     const input = this.value;
-                    
+
                     if (!validateEmail(input)) {
                         errorEmail.textContent = "Invalid Email Format";
                     } else {
                         errorEmail.textContent = "";
                     }
                 })
-                phoneField.addEventListener('input', function() {
+                phoneField.addEventListener('input', function () {
                     const input = this.value;
                     if (!validatePhoneNumber(input)) {
                         errorPhone.textContent = "Invalid Phone Number";
@@ -37,14 +37,11 @@
                     }
                 })
             }
-         });
+        });
     </script>
 </head>
 
 <body>
-    <button class=homeButton onclick="window.location.href='index.html'">
-        <img src="favicon.ico" alt="Homepage">
-    </button>
     <div class="contacts-container">
         <div class="search-bar">
             <label>
@@ -80,6 +77,11 @@
         </table>
 
     </div>
+    <footer>
+        <button class=home-button onclick="window.location.href='index.html'">
+            <img src="images/home_icon.png" alt="Homepage">
+        </button>
+    </footer>
 </body>
 
 </html>
