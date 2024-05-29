@@ -109,6 +109,7 @@ function register() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
+                console.log(jsonObject);
                 if ("error" in jsonObject) {
                     if (jsonObject.error == "Login Not Available") {
                         const errorMessage = document.getElementById('signupResult');
