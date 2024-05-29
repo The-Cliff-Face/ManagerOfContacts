@@ -2,6 +2,14 @@ const urlBase = 'http://managerofcontacts.xyz/LAMPAPI';
 const extension = 'php';
 
 
+function invalidLoginAnimation() {
+    document.getElementById("submission-box").classList.add("invalid");
+    submissionBox.addEventListener("animationend", function() {
+        submissionBox.classList.remove("invalid");
+    }, { once: true });
+
+}
+
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -15,7 +23,6 @@ function doLogin() {
     let jsonPayload = JSON.stringify(tmp);
 
     let url = urlBase + '/Login.' + extension;
-
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -27,7 +34,7 @@ function doLogin() {
 
                 if (userId < 1) {
                     document.getElementById("loginResult").innerHTML = "Incorrect username or password.";
-                    document.getElementById("submission-box").classList.add("invalid");
+                    invalidLoginAnimation();
                     return;
                 }
                 firstName = jsonObject.firstName;
@@ -44,7 +51,7 @@ function doLogin() {
                 window.location.href = "contacts.html";
             }
         };
-        xhr.send(jsonPayload);
+       xhr.send(jsonPayload);
     }
     catch (err) {
         document.getElementById("loginResult").innerHTML = err.message;
@@ -112,6 +119,7 @@ function register() {
     catch (err) {
         const errorMessage = document.getElementById('signupResult');
         errorMessage.textContent = err.message;
+        return;
         //document.getElementById("signUpResult").innerHTML = err.message;
     }
 
@@ -142,19 +150,6 @@ function signupCheck(username, firstname, lastname, password) {
         return true;
     }
 }
-
-
-function preventSQLInjection(fieldObj) {
-    let result = false;
-    const SQLCommands = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|TRUNCATE|CREATE|REPLACE|RENAME)\b/i;
-    const illegalCharacters = /['";\-\-%]/;
-
-    Object.values(fieldObj).forEach(value => {
-        result |= (SQLCommands.test(value) || illegalCharacters.test(value));
-    });
-    return result;
-}
-
 
 
 
@@ -422,10 +417,16 @@ function addContact() {
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return;}
 
+
     let firstName = document.getElementById("addFirstNameInput").value;
     let lastName = document.getElementById("addLastNameInput").value;
     let phone = document.getElementById("addPhoneInput").value;
     let email = document.getElementById("addEmailInput").value;
+
+    if (!validatePhoneNumber(phone) && !validateEmail(email)) {
+        console.log("failed!");
+        return; // TODO: add some sort of error message
+    }
 
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
