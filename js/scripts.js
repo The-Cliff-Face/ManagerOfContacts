@@ -117,6 +117,17 @@ function register() {
 
 }
 
+function validateEmail(emailField) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(emailField);
+}
+
+function validatePhoneNumber(phoneField){ 
+    const regex = /^(\+1\s?)?(\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]?\d{4}$/;
+    return regex.test(phoneField);
+}
+
+
 function validatePassword(password) {
     const regex = /^(?=.*[0-9]).{8,}$/;
     return regex.test(password);
@@ -163,6 +174,7 @@ function getUserId() {
     let userId = parseInt(token[1]);
     return userId;
 }
+
 
 function readCookie() {
     userId = -1;
