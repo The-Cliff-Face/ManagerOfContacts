@@ -27,11 +27,13 @@
 
                 if (!validatePassword(input)) {
                     errorMessage.textContent = "Password requires at least 8 characters and one number.";
+                    errorMessage.style.color = '#B50000';
                     r = false;
                 } else {
                     r = true;
                     if (compare_input != input) {
                         errorMessage.textContent = "Passwords don't match.";
+                        errorMessage.style.color = '#B50000';
                         m = false;
                     } else {
                         errorMessage.textContent = "Passwords match!";
@@ -48,11 +50,13 @@
                 errorMessage.style.display = "block";
                 if (!validatePassword(input)) {
                     errorMessage.textContent = "Password requires at least 8 characters and one number.";
+                    errorMessage.style.color = '#B50000';
                     r = true;
                 } else {
                     r = false;
                     if (compare_input != input) {
                         errorMessage.textContent = "Passwords don't match.";
+                        errorMessage.style.color = '#B50000';
                         m = false;
                     } else {
                         errorMessage.textContent = "Passwords match!";
@@ -69,7 +73,7 @@
 
 <body>
     <div class="form-container">
-        <form class="form-box">
+        <form class="form-box" id="submission-box">
             <h2>Sign Up</h2>
             <center>
                 <span id="signupResult"></span>

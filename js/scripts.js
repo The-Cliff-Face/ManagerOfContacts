@@ -75,6 +75,7 @@ function register() {
     if (!requirementsSatisfied) {
         const errorMessage = document.getElementById('signupResult');
         errorMessage.textContent = "Requirements not satisfied";
+        invalidLoginAnimation();
         console.log("failed");
         return;
     }
@@ -87,6 +88,7 @@ function register() {
     if (!signupCheck(username, firstname, lastname, password)) {
         const errorMessage = document.getElementById('signupResult');
         errorMessage.textContent = "Requirements not satisfied";
+        invalidLoginAnimation();
         console.log("failed");
         return;
     }
@@ -115,6 +117,7 @@ function register() {
                         errorPassword.style.display = "none";
                         errorPassword.textContent = "";
                         errorMessage.textContent = "That username is taken.";
+                        invalidLoginAnimation();
                         clearAllFields();
                         return;
                     }
