@@ -72,9 +72,6 @@
 </script>
 
 <body>
-    <button class=homeButton onclick="window.location.href='index.html'">
-        <img src="favicon.ico" alt="Homepage">
-    </button>
     <div class="form-container">
         <form class="form-box">
             <h2>Sign Up</h2>
@@ -120,14 +117,16 @@
                 <button type="button" onclick="register();" id="submit-register-button">Sign up</button>
                 <p style="font-size:.75em;">Already have an account? <a href='login.html'>Log in</a></p>
             </div>
-
-
-
         </form>
-
-
     </div>
-
+    <footer>
+        <button class=home-button onclick="window.location.href='index.html'">
+            <img src="images/home_icon.png" alt="Homepage">
+        </button>
+        <a href="https://github.com/The-Cliff-Face/Manager_Of_Contacts/blob/main/README.md">
+            <img id="github-mark" src="images/github-mark.png" alt="github-icon">
+        </a>
+    </footer>
     <script src="js/scripts.js"></script>
     <script src="js/md5.js"></script>
 </body>

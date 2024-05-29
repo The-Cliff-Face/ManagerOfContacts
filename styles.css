@@ -52,20 +52,21 @@ a:hover {
     height: 100%;
 }
 
-.homeButton {
+.home-button {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    bottom: 1rem;
+    left: 1rem;
     background: none;
-    border-color: transparent;
+    border: none;
 }
 
-.homeButton img {
-    height: 65px;
+.home-button img {
+    height: 90px;
 }
 
-.homeButton :hover {
+.home-button :hover {
     opacity: 0.8;
+    cursor: pointer;
 }
 
 /* Field labels */
@@ -284,33 +285,6 @@ label {
     color: rgb(255, 255, 255);
 }
 
-
-/* Navigation bar */
-.navbar ul {
-    list-style-type: none;
-    /*background-color: #000000;*/
-    text-align: center;
-    overflow: hidden;
-
-}
-
-.navbar a {
-    padding: 15px;
-    text-decoration: none;
-    text-align: center;
-    color: rgb(0, 0, 0)
-}
-
-.navbar a:hover {
-    /*should be in accented color*/
-    color: rgb(255, 255, 255)
-}
-
-.navbar li {
-    float: left;
-
-}
-
 /* Contacts Page */
 .contacts-container {
     align-content: center;
@@ -405,7 +379,8 @@ td button:hover {
 }
 
 footer {
-    position: relative;
-    display: block;
-    top: -32%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 75px;
 }
