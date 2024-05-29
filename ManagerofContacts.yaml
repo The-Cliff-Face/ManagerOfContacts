@@ -170,6 +170,32 @@ paths:
           description: URL Not Found
         "500":
           description: Internal Server Error
+  /PaginatedSearchContact.php:
+    post:
+      tags:
+      - Search Contacts
+      summary: SearchContact.php but with paginated results
+      description: "Returns search results ordered alphabetically by lastName, then by firstName. Breaks up results into small groups of pageSize length"
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: searchInfo
+        description: "Lookup provided search string among contacts associated with the given user ID. Will only match to contact's first or last name, NOT to email or phone numbers. Imagine a user that has 15 contacts. Suppose you call paginated search with pageSize: 5. That means that to get all results you will need to issue 3 API calls, one with pageNumber: 1, another with pageNumber: 2, and the last with pageNumber: 3. If you ask for 5 results and there are only x available, you just get those x. If you ask for 5 results and there are 0 available, you get the same empty contact with id 0 that search returns in the event of no matches."
+        required: false
+        schema:
+          $ref: '#/definitions/searchInfo_1'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inline_response_200_4'
+        "404":
+          description: URL Not Found
+        "500":
+          description: Internal Server Error
 definitions:
   editContactInfo:
     type: object
@@ -223,6 +249,47 @@ definitions:
       email:
         type: string
         example: ""
+  searchInfo_1:
+    type: object
+    required:
+    - pageNumber
+    - pageSize
+    - search
+    - userId
+    properties:
+      pageNumber:
+        type: integer
+        example: 1
+      pageSize:
+        type: integer
+        example: 5
+      search:
+        type: string
+        example: John
+      userId:
+        type: integer
+        example: 11
+        description: Determined by code and not made up by the user
+  signupInfo:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - login
+    - password
+    properties:
+      firstName:
+        type: string
+        example: Doofenschmirtz
+      lastName:
+        type: string
+        example: McGee
+      login:
+        type: string
+        example: FastAndBulbous_1337
+      password:
+        type: string
+        example: SuperSecretPassword
   searchInfo:
     type: object
     required:
@@ -321,23 +388,3 @@ definitions:
         type: integer
         example: 11
         description: Determined by code and not made up by the user
-  signupInfo:
-    type: object
-    required:
-    - firstName
-    - lastName
-    - login
-    - password
-    properties:
-      firstName:
-        type: string
-        example: Doofenschmirtz
-      lastName:
-        type: string
-        example: McGee
-      login:
-        type: string
-        example: FastAndBulbous_1337
-      password:
-        type: string
-        example: SuperSecretPassword
