@@ -100,6 +100,11 @@ function register() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
+                if ("error" in jsonObject) {
+                    const errorMessage = document.getElementById('signupResult');
+                    errorMessage.textContent = "User already exists";
+                    return;
+                }
                 userId = jsonObject.id;
                 //document.getElementById("signUpResult").innerHTML = "Success";
                 window.location.href = "login.html";
