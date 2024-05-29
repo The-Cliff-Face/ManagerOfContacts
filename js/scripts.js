@@ -3,7 +3,8 @@ const extension = 'php';
 
 
 function invalidLoginAnimation() {
-    document.getElementById("submission-box").classList.add("invalid");
+    const submissionBox = document.getElementById("submission-box");
+    submissionBox.classList.add("invalid");
     submissionBox.addEventListener("animationend", function() {
         submissionBox.classList.remove("invalid");
     }, { once: true });
