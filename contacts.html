@@ -12,6 +12,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="js/scripts.js"> </script>
     <script src="js/md5.js"> </script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            const emailInput = document.getElementById('addEmailInput');
+            const errorEmail = document.getElementById('addEmailResult');
+            const errorPhone = document.getElementById('addPhoneResult');
+            const phoneField = document.getElementById('addPhoneInput');
+            if (emailInput && errorEmail && phoneField){
+                emailInput.addEventListener('input', function() {
+                    const input = this.value;
+                    
+                    if (!validateEmail(input)) {
+                        errorEmail.textContent = "Invalid Email Format";
+                    } else {
+                        errorEmail.textContent = "";
+                    }
+                })
+                phoneField.addEventListener('input', function() {
+                    const input = this.value;
+                    if (!validatePhoneNumber(input)) {
+                        errorPhone.textContent = "Invalid Phone Number";
+                    } else {
+                        errorPhone.textContent = "";
+                    }
+                })
+            }
+         });
+    </script>
 </head>
 
 <body>
@@ -38,27 +65,18 @@
         </table>
         <table class="rows" id="main_table">
             <tr>
-                <td><input type="text" id="addFirstNameInput" placeholder="First Name" required /></td>
-                <td><input type="text" id="addLastNameInput" placeholder="Last Name" required /></td>
-                <td><input type="text" id="addEmailInput" placeholder="Email Address" required /></td>
-                <td><input type="text" id="addPhoneInput" placeholder="Phone Number" required /></td>
+                <td><input type="text" id="addFirstNameInput" placeholder="First name" required /></td>
+                <td><input type="text" id="addLastNameInput" placeholder="Last name" required /></td>
+                <td><input type="text" id="addEmailInput" placeholder="Email" required />
+                    <span id="addEmailResult"></span>
+                </td>
+                <td><input type="text" id="addPhoneInput" placeholder="Phone Number" required />
+                    <span id="addPhoneResult"></span>
+                </td>
                 <td><button type="submit" id="addButton" onclick="addContact();">Add Contact</button></td>
             </tr>
             <tr></tr>
-
-            <div id="contacts-container">
-                <tr>
-                    <td>sample</td>
-                    <td>sample</td>
-                    <td>sample</td>
-                    <td>sample</td>
-                    <td></td>
-                </tr>
-            </div>
-            <tr></tr>
             <!-- Append search results and edit/delete buttons -->
-            <div id="contactsContainer"></div>
-
         </table>
 
     </div>
