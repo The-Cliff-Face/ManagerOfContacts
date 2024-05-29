@@ -68,8 +68,7 @@ function clearAllFields() {
     var inputCollection = document.getElementsByTagName("input");
     for (var i = 0; i < inputCollection.length; i++) {
         inputCollection[i].value = "";
-      }
-    
+      }   
 }
 
 function register() {
@@ -109,10 +108,12 @@ function register() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-                console.log(jsonObject);
                 if ("error" in jsonObject) {
                     if (jsonObject.error == "Login Not Available") {
                         const errorMessage = document.getElementById('signupResult');
+                        const errorPassword = document.getElementById('confirm-password-result');
+                        errorPassword.style.display = "none";
+                        errorPassword.textContent = "";
                         errorMessage.textContent = "User already exists";
                         clearAllFields();
                         return;
