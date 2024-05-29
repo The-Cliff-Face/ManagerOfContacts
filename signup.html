@@ -4,93 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Manager of Contacts Sign up</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<script> 
+<script>
     let requirementsSatisfied = false;
 
-    document.addEventListener('DOMContentLoaded', function() {
-    const confirmPasswordInput = document.getElementById('contact-password-confirm');
-    const passwordInput = document.getElementById('contact-password');
-    const errorMessage = document.getElementById('confirm-password-result');
-    let m = false;
-    let r = false; 
-    if (confirmPasswordInput && passwordInput && errorMessage) {
-        confirmPasswordInput.addEventListener('input', function() {
-            const input = this.value;
-            const compare_input = passwordInput.value;
-            errorMessage.style.display = "block";
+    document.addEventListener('DOMContentLoaded', function () {
+        const confirmPasswordInput = document.getElementById('contact-password-confirm');
+        const passwordInput = document.getElementById('contact-password');
+        const errorMessage = document.getElementById('confirm-password-result');
+        let m = false;
+        let r = false;
+        if (confirmPasswordInput && passwordInput && errorMessage) {
+            confirmPasswordInput.addEventListener('input', function () {
+                const input = this.value;
+                const compare_input = passwordInput.value;
+                errorMessage.style.display = "block";
 
-            if (!validatePassword(input)) {
-                errorMessage.textContent = "Password: We require atleast 8 characters and one number";
-                errorMessage.style.color = "#ff0000";
-                r = false;
-            } else {
-                r = true;
-                if (compare_input != input) {
-                    errorMessage.textContent = "Not matching";
+                if (!validatePassword(input)) {
+                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
                     errorMessage.style.color = "#ff0000";
-                    m = false;
+                    r = false;
                 } else {
-                    errorMessage.textContent = "Matching";
-                    errorMessage.style.color = '#00ff00';
-                    m = true;    
+                    r = true;
+                    if (compare_input != input) {
+                        errorMessage.textContent = "Not matching";
+                        errorMessage.style.color = "#ff0000";
+                        m = false;
+                    } else {
+                        errorMessage.textContent = "Matching";
+                        errorMessage.style.color = '#00ff00';
+                        m = true;
+                    }
                 }
-            }
-            requirementsSatisfied = r & m;
-   
-        });
-        passwordInput.addEventListener('input', function() {
-            const input = this.value;
-            const compare_input = confirmPasswordInput.value;
-            errorMessage.style.display = "block";
-            if (!validatePassword(input)) {
-                errorMessage.textContent = "Password: We require atleast 8 characters and one number";
-                errorMessage.style.color = "#ff0000";
-                r = true;
-            } else {
-                r = false;
-                if (compare_input != input) {
-                    errorMessage.textContent = "Not matching";
+                requirementsSatisfied = r & m;
+
+            });
+            passwordInput.addEventListener('input', function () {
+                const input = this.value;
+                const compare_input = confirmPasswordInput.value;
+                errorMessage.style.display = "block";
+                if (!validatePassword(input)) {
+                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
                     errorMessage.style.color = "#ff0000";
-                    m = false;
+                    r = true;
                 } else {
-                    errorMessage.textContent = "Matching";
-                    errorMessage.style.color = '#00AA00';
-                    m = true;
+                    r = false;
+                    if (compare_input != input) {
+                        errorMessage.textContent = "Not matching";
+                        errorMessage.style.color = "#ff0000";
+                        m = false;
+                    } else {
+                        errorMessage.textContent = "Matching";
+                        errorMessage.style.color = '#00AA00';
+                        m = true;
+                    }
                 }
-            }
-            requirementsSatisfied = r & m; 
-        });
-        
-    }
+                requirementsSatisfied = r & m;
+            });
+
+        }
     });
 </script>
 
 <body>
-    <a href="http://managerofcontacts.xyz/"></a>
-    <button class=homeButton>
-        <img src= "favicon.ico" alt="Homepage">
+    <button class=homeButton onclick="window.location.href='index.html'">
+        <img src="favicon.ico" alt="Homepage">
     </button>
     <div class="form-container">
         <form class="form-box">
             <h2>Sign Up</h2>
             <center>
                 <span id="signupResult"></span>
-            <div class="form-group-name">
-                <label>
-                    <div class="name-label">First Name</div>
-                    <input type="text" id="contact-firstname" name="firstname" placeholder="First Name" required>
-                </label>
-                <label>
-                    <div class="name-label">Last Name</div>
-                    <input type="text" id="contact-lastname" name="lastname" placeholder="Last Name" required>
-                </label>
-            </div>
+                <div class="form-group-name">
+                    <label>
+                        <div class="name-label">First Name</div>
+                        <input type="text" id="contact-firstname" name="firstname" placeholder="First Name" required>
+                    </label>
+                    <label>
+                        <div class="name-label">Last Name</div>
+                        <input type="text" id="contact-lastname" name="lastname" placeholder="Last Name" required>
+                    </label>
+                </div>
             </center>
 
             <div class="form-group">
@@ -111,7 +110,8 @@
             <div class="form-group">
                 <label>
                     <div class="signup-label">Confirm Password</div>
-                    <input type="password" id="contact-password-confirm" name="password" placeholder="Confirm Password" required>
+                    <input type="password" id="contact-password-confirm" name="password" placeholder="Confirm Password"
+                        required>
                     <span id="confirm-password-result" class="error-message"></span>
                 </label>
             </div>
@@ -124,7 +124,7 @@
 
 
         </form>
-        
+
 
     </div>
 

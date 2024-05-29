@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager of Contracts Log In</title>
+    <title>Manager of Contacts Log In</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="js/scripts.js"> </script>
     <script src="js/md5.js"> </script>
 </head>
 
 
 <body>
-    <a href="http://managerofcontacts.xyz/"></a>
-    <button class=homeButton>
-        <img src= "favicon.ico" alt="Homepage">
+    <button class=homeButton onclick="window.location.href='index.html'">
+        <img src="favicon.ico" alt="Homepage">
     </button>
-    <div class="form-container"> 
+    <div class="form-container">
         <div class="form-box" id="submission-box">
             <h2>Log In</h2>
-            <div class="form-group"> 
+            <div class="form-group">
                 <span id="loginResult"></span>
             </div>
-            <div class= "form-group">
+            <div class="form-group">
                 <label>
                     <div class="login-label">Username</div>
                     <input type="text" id="contact-username" name="username" placeholder="Username" required>
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANFJREFUSEu9lF0SgjAMhJebycnUk8nNlH2oA7HJLlbMC8M03S8/TSacbNPJ+nABFwBXAPzSbgDuTnAOgKKPREzelw5r5E8RaamhAFX0jTsEYN1Z78rKfqgMKKxKNK/NX7IIRgEUJiA1B1BlUUbPiy6Avts54D/nIC2N9QKcQVI+RzJQWt1zBWhlaSsiirQnnK6NDBB3jxN9t+E9gDO99rPvAdRgqWx2mhHgrAYF2K2OCOBazhqqhLfnb90IGC3Px3z9HXCkDJavGjRL5Bfb9GvQC2JrGhmJAU/EAAAAAElFTkSuQmCC" alt="person-silhouette-icon"/>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANFJREFUSEu9lF0SgjAMhJebycnUk8nNlH2oA7HJLlbMC8M03S8/TSacbNPJ+nABFwBXAPzSbgDuTnAOgKKPREzelw5r5E8RaamhAFX0jTsEYN1Z78rKfqgMKKxKNK/NX7IIRgEUJiA1B1BlUUbPiy6Avts54D/nIC2N9QKcQVI+RzJQWt1zBWhlaSsiirQnnK6NDBB3jxN9t+E9gDO99rPvAdRgqWx2mhHgrAYF2K2OCOBazhqqhLfnb90IGC3Px3z9HXCkDJavGjRL5Bfb9GvQC2JrGhmJAU/EAAAAAElFTkSuQmCC"
+                        alt="person-silhouette-icon" />
                 </label>
             </div>
 
-            <div class= "form-group">
+            <div class="form-group">
                 <label>
                     <span id="incorrectPassword"></span>
                     <div class="login-label">Password</div>
                     <input type="password" id="contact-password" name="password" placeholder="Password" required>
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAKhJREFUSEvtldENgDAIRM/NdDJ1Mt1Mc0YSTBFQ0x/T/pgYeg+O0naovLrK+sgCegAjAH5lpfZmgig83VTK/7PnQgRgxsspoMU01NWIABQnxMpUIG4VEWA7s7fipLoVwHBn0xcANb0EDuY/AdaZz84je8GeuMMiJycrquOKhls9kMa9ARR9bQDLxosrzaL/WZQaNP3IPBk2ivN1C6+KJ6JhbHRdhwJRwA6LsSQZr6iluwAAAABJRU5ErkJggg==" alt="lock-icon"/>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAKhJREFUSEvtldENgDAIRM/NdDJ1Mt1Mc0YSTBFQ0x/T/pgYeg+O0naovLrK+sgCegAjAH5lpfZmgig83VTK/7PnQgRgxsspoMU01NWIABQnxMpUIG4VEWA7s7fipLoVwHBn0xcANb0EDuY/AdaZz84je8GeuMMiJycrquOKhls9kMa9ARR9bQDLxosrzaL/WZQaNP3IPBk2ivN1C6+KJ6JhbHRdhwJRwA6LsSQZr6iluwAAAABJRU5ErkJggg=="
+                        alt="lock-icon" />
                 </label>
             </div>
-            <div class="form-group"> 
+            <div class="form-group">
                 <button type="button" onclick="doLogin();">Login</button>
                 <p style="font-size:.75em;">Don't have an account? <a href='signup.html'>Sign Up</a></p>
             </div>
-            
+
         </div>
     </div>
-   
+
 </body>
+
 </html>
