@@ -26,18 +26,16 @@
                 errorMessage.style.display = "block";
 
                 if (!validatePassword(input)) {
-                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
-                    errorMessage.style.color = "#ff0000";
+                    errorMessage.textContent = "Password requires at least 8 characters and one number.";
                     r = false;
                 } else {
                     r = true;
                     if (compare_input != input) {
-                        errorMessage.textContent = "Not matching";
-                        errorMessage.style.color = "#ff0000";
+                        errorMessage.textContent = "Passwords don't match.";
                         m = false;
                     } else {
-                        errorMessage.textContent = "Matching";
-                        errorMessage.style.color = '#00ff00';
+                        errorMessage.textContent = "Passwords match!";
+                        errorMessage.style.color = '#008000';
                         m = true;
                     }
                 }
@@ -49,18 +47,16 @@
                 const compare_input = confirmPasswordInput.value;
                 errorMessage.style.display = "block";
                 if (!validatePassword(input)) {
-                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
-                    errorMessage.style.color = "#ff0000";
+                    errorMessage.textContent = "Password requires at least 8 characters and one number.";
                     r = true;
                 } else {
                     r = false;
                     if (compare_input != input) {
-                        errorMessage.textContent = "Not matching";
-                        errorMessage.style.color = "#ff0000";
+                        errorMessage.textContent = "Passwords don't match.";
                         m = false;
                     } else {
-                        errorMessage.textContent = "Matching";
-                        errorMessage.style.color = '#00AA00';
+                        errorMessage.textContent = "Passwords match!";
+                        errorMessage.style.color = '#008000';
                         m = true;
                     }
                 }
