@@ -231,8 +231,10 @@ function doEdit(firstName, lastName, phone, email, contactId) {
 
 
 function debug_search() {
+    clearSearchEntryField();
     const rows = document.getElementById("main_table");
     let contactItem = document.createElement("tr");
+    contactItem.setAttribute("id","search-entry");
     let firstNameTd = document.createElement("td");
     let lastNameTd = document.createElement("td");
     let phoneTd = document.createElement("td");
@@ -295,11 +297,17 @@ function debug_search() {
 }
 
 
+function clearSearchEntryField() {
+    document.querySelectorAll('#search-entry').forEach(function(element) {
+        element.remove();
+    });
+}
+
 function search() {
     // read in the search query from the input text box
     let searchString = document.getElementById("searchInput").value;
     // clear any previous search results
-    contactsContainer.innerHTML = "";
+    clearSearchEntryField();
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return;}
 
@@ -325,6 +333,7 @@ function search() {
                     searchResults.forEach(item => {
                         // for every item, creates a new table row containing 4 table data cells (for the 4 parts of a contact.)
                         let contactItem = document.createElement("tr");
+                        contactItem.setAttribute("id","search-entry");
                         //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
                         let firstNameTd = document.createElement("td");
