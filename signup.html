@@ -26,7 +26,7 @@
                 errorMessage.style.display = "block";
 
                 if (!validatePassword(input)) {
-                    errorMessage.textContent = "Password: We require atleast 8 characters and one number";
+                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
                     errorMessage.style.color = "#ff0000";
                     r = false;
                 } else {
@@ -49,7 +49,7 @@
                 const compare_input = confirmPasswordInput.value;
                 errorMessage.style.display = "block";
                 if (!validatePassword(input)) {
-                    errorMessage.textContent = "Password: We require atleast 8 characters and one number";
+                    errorMessage.textContent = "Password: We require at least 8 characters and one number";
                     errorMessage.style.color = "#ff0000";
                     r = true;
                 } else {
@@ -72,8 +72,7 @@
 </script>
 
 <body>
-    <a href="http://managerofcontacts.xyz/"></a>
-    <button class=homeButton>
+    <button class=homeButton onclick="window.location.href='index.html'">
         <img src="favicon.ico" alt="Homepage">
     </button>
     <div class="form-container">
