@@ -63,6 +63,14 @@ function goToSignup() {
     window.location.href = "signup.html";
 }
 
+function clearAllFields() {
+    var inputCollection = document.getElementsByTagName("input");
+    for (var i = 0; i < inputCollection.length; i++) {
+        inputCollection[i].value = "";
+      }
+    
+}
+
 function register() {
     if (!requirementsSatisfied) {
         const errorMessage = document.getElementById('signupResult');
@@ -103,6 +111,7 @@ function register() {
                 if ("error" in jsonObject) {
                     const errorMessage = document.getElementById('signupResult');
                     errorMessage.textContent = "User already exists";
+                    clearAllFields();
                     return;
                 }
                 userId = jsonObject.id;
