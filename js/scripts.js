@@ -332,7 +332,7 @@ function clearSearchEntryField() {
     document.querySelectorAll('#search-entry').forEach(function (element) {
         element.remove();
     });
-    _SEARCH_TABLE.stack = [];
+    _SEARCH_TABLE.clear_stack();
 }
 
 function onlyClearHTML() {
@@ -418,6 +418,9 @@ function addSortRow() {
 }
 
 function display() {
+    const e = document.getElementById("debugResult");
+    e.textContent = _SEARCH_TABLE._size;
+
     if (typeof _SEARCH_TABLE == 'undefined') {
         console.log("Something weird happened?");
         return;

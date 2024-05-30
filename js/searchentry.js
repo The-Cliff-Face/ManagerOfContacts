@@ -26,6 +26,11 @@ class SearchTable {
     sort(criteria = "firstName") {
         this._stack.sort((a, b) => a.compareTo(b, criteria));
     }
+    
+    clear_stack() {
+        this._stack = [];
+        this._size = 0;
+    }
 
 }
 
