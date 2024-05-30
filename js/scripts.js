@@ -349,6 +349,7 @@ function searchWrapper() {
         return;
     }
     query(field);
+    display();
 }
 
 function displayNoResults() {
@@ -534,7 +535,6 @@ function query(field) {
                         _SEARCH_TABLE.push_back(entry);
 
                     });
-                    display();
                 } else {
                     displayNoResults();
                 }
