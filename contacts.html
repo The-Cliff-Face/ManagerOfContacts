@@ -47,7 +47,7 @@
         let prevScrollPosition = 0;
         window.addEventListener('scroll', function() {
             let scrollPosition = window.scrollY;
-            if (scrollPosition > prevScrollPosition) {
+            if (scrollPosition > prevScrollPosition + 20) {
                 _PAGE_COUNTER++;
                 const field = document.getElementById("searchInput").value;
                 query(field);
