@@ -11,60 +11,6 @@ function invalidLoginAnimation() {
 
 }
 
-const form = document.getElementById('form-box');
-const firstname = document.getElementById('username');
-const lastname = document.getElementById('email');
-const password = document.getElementById('password');
-const password2 = document.getElementById('password2');
-
-form.addEventListener('submit', e =>{
-
-    e.preventDefault();
-
-    validateInputs();
-});
-
-const setError = (element, message) =>{
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success');
-}
-
-const validateInputs = () => {
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
-
-    if(usernameValue === ''){
-        setError(username, 'Firstname is required');
-    }else {
-        setSuccess(username);
-    }
-    
-    if(emailValue === ''){
-        setError(email, 'Lastname is required');
-    }else {
-        setSuccess(email);
-    }
-
-    if( passwordValue === ''){
-        setError(password, 'Password is required');
-    }else if(passwordValue.length < 8){
-        setError(password, 'Password must be at least 8 characters.')
-    } else{
-        setSuccess(password);
-    }
-    if(password2Value === ''){
-        setError(password2, 'Please confirm your password');
-    } else if (password2Value !== passwordValue){
-        setError(password2, "Passwords don't match!")
-    } else{
-        setSuccess(password2);
-    }
-};
-
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -386,11 +332,218 @@ function clearSearchEntryField() {
     document.querySelectorAll('#search-entry').forEach(function (element) {
         element.remove();
     });
+    _SEARCH_TABLE.stack = [];
 }
 
-function search() {
+
+function searchWrapper() {
+    let field = document.getElementById("searchInput").value;
+    if (field == "") {
+        displayNoResults();
+        return;
+    }
+    try {
+        //addSortRow();
+        query(field);
+        display();
+    } catch (err) {
+        displayNoResults();
+    }
+}
+
+function displayNoResults() {
+    clearSearchEntryField();
+    const rows = document.getElementById("main_table");
+    let contactItem = document.createElement("tr");
+    contactItem.setAttribute("id", "search-entry");
+                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
+
+    let a = document.createElement("td");
+    let b = document.createElement("td");
+    let message = document.createElement("td");
+    let c = document.createElement("td");
+    let d = document.createElement("td");
+    message.textContent = "No Results!";
+    contactItem.appendChild(a);
+    contactItem.appendChild(b);
+    contactItem.appendChild(message);
+    contactItem.appendChild(c);
+    contactItem.appendChild(d);
+    rows.appendChild(contactItem);
+
+}
+
+function addSortRow() {
+    const rows = document.getElementById("main_table");
+    let contactItem = document.createElement("tr");
+    contactItem.setAttribute("id", "search-entry");
+                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
+
+    let first = document.createElement("td");
+    let second = document.createElement("td");
+    let third = document.createElement("td");
+    let fourth = document.createElement("td");
+    let fifth = document.createElement("td");
+
+    if (document.querySelector("#sortByFirstName") == null) {
+        sortFirstName = document.createElement("button");
+        sortFirstName.setAttribute("id", "sortByFirstName");
+        sortFirstName.innerText = "Sort By First Name";
+        sortFirstName.addEventListener("click", () => {
+            _SEARCH_TABLE.sort("firstName");
+        });
+        first.appendChild(sortFirstName);
+    }
+
+    if (document.querySelector("#sortByLastName") == null) {
+        sortLastName = document.createElement("button");
+        sortLastName.setAttribute("id", "sortByLastName");
+        sortLastName.innerText = "Sort By Last Name";
+        sortLastName.addEventListener("click", () => {
+            _SEARCH_TABLE.sort("lastName");
+        });
+        second.appendChild(sortLastName);
+    }
+    
+    contactItem.appendChild(first);
+    contactItem.appendChild(second);
+    contactItem.appendChild(third);
+    contactItem.appendChild(fourth);
+    contactItem.appendChild(fifth);
+    rows.appendChild(contactItem);
+}
+
+function display() {
+    if (typeof _SEARCH_TABLE == 'undefined') {
+        console.error("Something weird happened?");
+        return;
+    }
+    if (_SEARCH_TABLE._stack.length == 0) {
+        return;
+    }
+    addSortRow();
+    const rows = document.getElementById("main_table");
+    for (const row of _SEARCH_TABLE._stack) {
+        rows.appendChild(row.contactItem);
+    }
+}
+
+
+function query(field) {
+    if (typeof _SEARCH_TABLE == 'undefined') {
+        console.error("Something weird happened?");
+        return;
+    }
     // read in the search query from the input text box
-    let searchString = document.getElementById("searchInput").value;
+    let searchString = field;
+    // clear any previous search results
+    clearSearchEntryField();
+    let userId = getUserId();
+    if (userId < 0) { console.log("failed"); return; }
+
+    let tmp = {pageNumber: _PAGE_COUNTER, pageSize:MAX_PAGE_SIZE, search: searchString, userId: userId };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + "/PaginatedSearchContact." + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function () {
+            // search requires that we actually do something with the response.
+            if (this.readyState == 4 && this.status == 200) {
+                let searchResults = JSON.parse(xhr.responseText).results;
+
+                // id will be 0 if there are no records found
+                if (searchResults[0].id > 1) // the search actually returned results
+                {
+                    //const contactsContainer = document.getElementById("contactsContainer");
+                    searchResults.forEach(item => {
+                        let contactItem = document.createElement("tr");
+                        contactItem.setAttribute("id", "search-entry");
+                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
+
+                        let firstNameTd = document.createElement("td");
+                        let lastNameTd = document.createElement("td");
+                        let phoneTd = document.createElement("td");
+                        let emailTd = document.createElement("td");
+                        let buttons = document.createElement("td");
+
+                        firstNameTd.textContent = `${item.firstName}`;
+                        lastNameTd.textContent = `${item.lastName}`;
+                        phoneTd.textContent = `${item.phone}`;
+                        emailTd.textContent = `${item.email}`;
+
+                        contactItem.appendChild(firstNameTd);
+                        contactItem.appendChild(lastNameTd);
+                        contactItem.appendChild(phoneTd);
+                        contactItem.appendChild(emailTd);
+
+                        // make the delete button for this contact.
+                        deleteButton = document.createElement("button");
+                        deleteButton.innerText = "Delete";
+                        deleteButton.addEventListener("click", () => {
+                            if (window.confirm("Really delete this contact?")) {
+                                doDelete(item.id);
+                                contactItem.remove();
+                            }
+                        });
+                        buttons.appendChild(deleteButton);
+
+                        // make the edit button for this contact.
+                        editButton = document.createElement("button");
+                        editButton.innerText = "Edit";
+                        editButton.addEventListener("click", () => {
+                            // allow the user to edit the text in the various fields.
+                            firstNameTd.setAttribute("contenteditable", "true");
+                            lastNameTd.setAttribute("contenteditable", "true");
+                            phoneTd.setAttribute("contenteditable", "true");
+                            emailTd.setAttribute("contenteditable", "true");
+
+                            // create a button to save the user's edits.
+                            if (document.querySelector("#saveButton") == null) {
+                                saveButton = document.createElement("button");
+                                saveButton.setAttribute("id", "saveButton");
+                                saveButton.innerText = "Save Edits";
+                                saveButton.addEventListener("click", () => {
+                                    doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+
+                                    // now that the editing is done, go back to normal
+                                    firstNameTd.setAttribute("contenteditable", "false");
+                                    lastNameTd.setAttribute("contenteditable", "false");
+                                    phoneTd.setAttribute("contenteditable", "false");
+                                    emailTd.setAttribute("contenteditable", "false");
+                                    saveButton.remove();
+                                });
+                                buttons.appendChild(saveButton);
+                            }
+
+
+                        });
+                        buttons.appendChild(editButton);
+                        contactItem.appendChild(buttons);
+                        let entry = SearchEntry(item.firstName,item.lastName, contactItem);
+                        _SEARCH_TABLE.push_back(entry);
+
+                    });
+                } else {
+                    displayNoResults();
+                }
+
+            }
+        }
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+function search(field) {
+    // read in the search query from the input text box
+    let searchString = field;
     // clear any previous search results
     clearSearchEntryField();
     let userId = getUserId();
@@ -523,12 +676,5 @@ function addContact() {
     catch (err) {
         console.log(err);
     }
-
-    // Empties the input fields after the contact has been added
-    document.getElementById("addFirstNameInput").value = "";
-    document.getElementById("addLastNameInput").value = "";
-    document.getElementById("addPhoneInput").value = "";
-    document.getElementById("addEmailInput").value = "";
-
 }
 
