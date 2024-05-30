@@ -469,5 +469,12 @@ function addContact() {
     catch (err) {
         console.log(err);
     }
+
+    // Empties the input fields after the contact has been added
+    document.getElementById("addFirstNameInput").value = "";
+    document.getElementById("addLastNameInput").value = "";
+    document.getElementById("addPhoneInput").value = "";
+    document.getElementById("addEmailInput").value = "";
+
 }
 
