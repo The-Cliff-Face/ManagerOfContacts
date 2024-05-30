@@ -535,6 +535,7 @@ function query(field) {
                         _SEARCH_TABLE.push_back(entry);
 
                     });
+                    display();
                 } else {
                     displayNoResults();
                 }
