@@ -345,10 +345,6 @@ table {
     border-radius: 0 0 15px 15px;
 }
 
-.rows:hover {
-	filter: brightness(1.05);
-}
-
 td input {
     padding: 0.5rem;
     border: 2px solid black;
