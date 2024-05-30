@@ -342,15 +342,22 @@ function onlyClearHTML() {
 }
 
 
-function searchWrapper() {
-    let field = document.getElementById("searchInput").value;
-    if (field == "") {
-        displayNoResults();
+function searchWrapper(showAllBoolean) {
+    const field = document.getElementById("searchInput").value;
+    
+    if (showAllBoolean || field === "") {
+        _PAGE_COUNTER = 0;
+        clearSearchEntryField();
+        query(field);
+        display();
         return;
     }
-    query(field);
-    display();
+    
+    displayNoResults();
 }
+
+
+
 
 function displayNoResults() {
     clearSearchEntryField();
@@ -446,11 +453,11 @@ function query(field) {
     // read in the search query from the input text box
     let searchString = field;
     // clear any previous search results
-    clearSearchEntryField();
+    
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return; }
 
-    let tmp = {pageNumber: 1, pageSize:11, search: searchString, userId: userId };
+    let tmp = {pageNumber: _PAGE_COUNTER, pageSize:MAX_PAGE_SIZE, search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/PaginatedSearchContact." + extension;
     let xhr = new XMLHttpRequest();
