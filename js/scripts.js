@@ -347,6 +347,7 @@ function searchWrapper() {
         query(field);
         display();
     } catch (err) {
+        console.log(err);
         displayNoResults();
     }
 }
