@@ -387,8 +387,10 @@ function search() {
                         deleteButton = document.createElement("button");
                         deleteButton.innerText = "Delete";
                         deleteButton.addEventListener("click", () => {
-                            doDelete(item.id);
-                            contactItem.remove();
+                            if (window.confirm("Really delete this contact?")) {
+                                doDelete(item.id);
+                                contactItem.remove();
+                            }
                         });
                         buttons.appendChild(deleteButton);
 
