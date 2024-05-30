@@ -345,8 +345,8 @@ function onlyClearHTML() {
 function searchWrapper(showAllBoolean) {
     const field = document.getElementById("searchInput").value;
     
-    if (showAllBoolean || field === "") {
-        _PAGE_COUNTER = 0;
+    if (showAllBoolean || field != "") {
+        _PAGE_COUNTER = 1;
         clearSearchEntryField();
         query(field);
         display();
