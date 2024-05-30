@@ -416,10 +416,11 @@ function addSortRow() {
 
 function display() {
     if (typeof _SEARCH_TABLE == 'undefined') {
-        console.error("Something weird happened?");
+        console.log("Something weird happened?");
         return;
     }
     if (_SEARCH_TABLE._stack.length == 0) {
+        console.log("empty");
         return;
     }
     addSortRow();
@@ -523,6 +524,7 @@ function query(field) {
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
                         let entry = SearchEntry(item.firstName,item.lastName, contactItem);
+                        console.log("pushed back");
                         _SEARCH_TABLE.push_back(entry);
 
                     });
