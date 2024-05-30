@@ -12,7 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="js/scripts.js"> </script>
     <script src="js/md5.js"> </script>
+    <script src="js/searchentry.js"></script>
     <script>
+        let _SEARCH_TABLE = new SearchTable();
+        let _PAGE_COUNTER = 0;
+        const MAX_PAGE_SIZE = 5;
+
         document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
             const errorEmail = document.getElementById('addEmailResult');
@@ -47,8 +52,12 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton" onclick="search();"><i class="fa fa-search"></i></button>
+                    id="searchButton" onclick="searchWrapper();"><i class="fa fa-search"></i></button>
             </label>
+            <button onclick="search('');">
+                Search All
+            </button>
+            
         </div>
 
         <table class="header">
@@ -64,10 +73,10 @@
             <tr>
                 <td><input type="text" id="addFirstNameInput" placeholder="First name" required /></td>
                 <td><input type="text" id="addLastNameInput" placeholder="Last name" required /></td>
-                <td><input type="text" id="addPhoneInput" placeholder="XXX-XXX-XXXX" required />
+                <td><input type="text" id="addPhoneInput" placeholder="Phone Number" required />
                     <span id="addPhoneResult"></span>
                 </td>
-                <td><input type="text" id="addEmailInput" placeholder="name@domain.com" required />
+                <td><input type="text" id="addEmailInput" placeholder="Email" required />
                     <span id="addEmailResult"></span>
                 </td>
                 <td><button type="submit" id="addButton" onclick="addContact();">Add Contact</button></td>
