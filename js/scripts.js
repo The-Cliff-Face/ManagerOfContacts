@@ -441,8 +441,10 @@ function search() {
                         deleteButton = document.createElement("button");
                         deleteButton.innerText = "Delete";
                         deleteButton.addEventListener("click", () => {
-                            doDelete(item.id);
-                            contactItem.remove();
+                            if (window.confirm("Really delete this contact?")) {
+                                doDelete(item.id);
+                                contactItem.remove();
+                            }
                         });
                         buttons.appendChild(deleteButton);
 
@@ -521,5 +523,12 @@ function addContact() {
     catch (err) {
         console.log(err);
     }
+
+    // Empties the input fields after the contact has been added
+    document.getElementById("addFirstNameInput").value = "";
+    document.getElementById("addLastNameInput").value = "";
+    document.getElementById("addPhoneInput").value = "";
+    document.getElementById("addEmailInput").value = "";
+
 }
 
