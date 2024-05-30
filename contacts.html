@@ -44,6 +44,16 @@
                 })
             }
         });
+        let prevScrollPosition = 0;
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.scrollY;
+            if (scrollPosition > prevScrollPosition) {
+                _PAGE_COUNTER++;
+                const field = document.getElementById("searchInput").value;
+                query(field);
+            }
+        });
+
     </script>
 </head>
 
@@ -53,9 +63,9 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton" onclick="searchWrapper();"><i class="fa fa-search"></i></button>
+                    id="searchButton" onclick="searchWrapper(false);"><i class="fa fa-search"></i></button>
             </label>
-            <button onclick="search('');">
+            <button onclick="searchWrapper(true);">
                 Search All
             </button>
             <label id="debugResult"></label>
