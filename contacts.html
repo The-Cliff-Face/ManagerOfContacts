@@ -15,8 +15,9 @@
     <script src="js/searchentry.js"></script>
     <script>
         let _SEARCH_TABLE = new SearchTable();
-        let _PAGE_COUNTER = 0;
+        let _PAGE_COUNTER = 1;
         const MAX_PAGE_SIZE = 5;
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
@@ -57,6 +58,7 @@
             <button onclick="search('');">
                 Search All
             </button>
+            <label id="debugResult"></label>
             
         </div>
 
