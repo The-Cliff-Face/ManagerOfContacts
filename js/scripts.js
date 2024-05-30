@@ -523,7 +523,7 @@ function query(field) {
                         });
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
-                        let entry = SearchEntry(item.firstName,item.lastName, contactItem);
+                        let entry = new SearchEntry(item.firstName,item.lastName, contactItem);
                         console.log("pushed back");
                         _SEARCH_TABLE.push_back(entry);
 
