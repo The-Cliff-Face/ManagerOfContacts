@@ -58,6 +58,8 @@ a:hover {
     left: 1rem;
     background: none;
     border: none;
+    box-shadow: 0 2px 2px 0 #784100;
+    border-radius: 100%;
 }
 
 .home-button img {
