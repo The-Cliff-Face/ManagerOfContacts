@@ -73,43 +73,30 @@
 
 <body>
     <div class="form-container">
-        <form class="form-box" id="submission-box">
+        <form class="form-box" id="submission-box" action="/">
             <h2>Sign Up</h2>
-            <center>
-                <span id="signupResult"></span>
-                <div class="form-group-name">
-                    <label>
-                        <div class="name-label">First Name</div>
-                        <input type="text" id="contact-firstname" name="firstname" placeholder="First Name" required>
-                    </label>
-                    <label>
-                        <div class="name-label">Last Name</div>
-                        <input type="text" id="contact-lastname" name="lastname" placeholder="Last Name" required>
-                    </label>
-                </div>
-            </center>
-
-            <div class="form-group">
-                <label>
-                    <div class="signup-label">Username</div>
-                    <input type="text" id="contact-username" name="username" placeholder="Username" required></input>
-                </label>
+            <div class="input-control">
+                <label for="username">Firstname</label>
+                <input id="username" name="username" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="email">Lastname</label>
+                <input id="email" name="lastname" type="text">
+                <div class="error"></div>
             </div>
 
-            <div class="form-group">
-                <label>
-                    <div class="signup-label">Password</div>
-                    <input type="password" id="contact-password" name="password" placeholder="Password" required>
-                    <span id="password-result" class="error-message"></span>
-                </label>
+            <div class="input-control">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password">
+                <div class="error"></div>
             </div>
 
-            <div class="form-group">
-                <label>
-                    <div class="signup-label">Confirm Password</div>
-                    <input type="password" id="contact-password-confirm" name="password" placeholder="Confirm Password"
-                        required>
-                    <span id="confirm-password-result" class="error-message"></span>
+            <div class="input-control">
+                <label for="password">Password</label>
+                <input id="password2" name="password2" type="password">
+                <div class="error"></div>
+                    
                 </label>
             </div>
 
