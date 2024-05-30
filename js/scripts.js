@@ -335,6 +335,12 @@ function clearSearchEntryField() {
     _SEARCH_TABLE.stack = [];
 }
 
+function onlyClearHTML() {
+    document.querySelectorAll('#search-entry').forEach(function (element) {
+        element.remove();
+    });
+}
+
 
 function searchWrapper() {
     let field = document.getElementById("searchInput").value;
@@ -342,14 +348,7 @@ function searchWrapper() {
         displayNoResults();
         return;
     }
-    try {
-        //addSortRow();
-        query(field);
-        display();
-    } catch (err) {
-        console.log(err);
-        displayNoResults();
-    }
+    query(field);
 }
 
 function displayNoResults() {
@@ -392,6 +391,8 @@ function addSortRow() {
         sortFirstName.innerText = "Sort By First Name";
         sortFirstName.addEventListener("click", () => {
             _SEARCH_TABLE.sort("firstName");
+            onlyClearHTML();
+            display();
         });
         first.appendChild(sortFirstName);
     }
@@ -402,6 +403,8 @@ function addSortRow() {
         sortLastName.innerText = "Sort By Last Name";
         sortLastName.addEventListener("click", () => {
             _SEARCH_TABLE.sort("lastName");
+            onlyClearHTML();
+            display();
         });
         second.appendChild(sortLastName);
     }
@@ -528,6 +531,7 @@ function query(field) {
                         _SEARCH_TABLE.push_back(entry);
 
                     });
+                    display();
                 } else {
                     displayNoResults();
                 }
