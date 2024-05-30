@@ -307,7 +307,7 @@ table {
 .header {
     background-color: #FF9F2D;
     border-radius: 15px 15px 0 0;
-    max-height: 800px;
+    max-height: 300px;
     overflow: auto;
     transition: opacity 0.5s ease;
 }
