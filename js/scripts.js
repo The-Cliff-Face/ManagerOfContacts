@@ -443,7 +443,7 @@ function query(field) {
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return; }
 
-    let tmp = {pageNumber: _PAGE_COUNTER, pageSize:MAX_PAGE_SIZE, search: searchString, userId: userId };
+    let tmp = {pageNumber: 1, pageSize:11, search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/PaginatedSearchContact." + extension;
     let xhr = new XMLHttpRequest();
