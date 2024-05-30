@@ -58,8 +58,6 @@ a:hover {
     left: 1rem;
     background: none;
     border: none;
-    box-shadow: 0 2px 2px 0 #784100;
-    border-radius: 100%;
 }
 
 .home-button img {
@@ -86,42 +84,12 @@ label {
     text-align: left;
     margin-inline-start: 45px;
 }
-/*.name-label, is now first-name*/ 
+
 .name-label {
     text-align: left;
     margin-inline-start: 6px;
 }
 
-.input-control
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.input-control input
-{
-    border: 2px solid #f0f0f0;
-    border-radius: 4px;
-    display: block;
-    font-size: 12px;
-    padding: 10px;
-    width: 100%;
-}
-
-.input-control input:focus{
-    outline: 0;
-}
-
-.input-control.success input{
-    border-color: #09c372;
-}
-
-.input-control.error input
-{
-    border-color: #ff3860;
-    font-size: 9px;
-    height: 13px;
-}
 
 /* Form elements */
 .form-group {
@@ -212,8 +180,8 @@ label {
     border-radius: 10px;
     padding: 0.75rem;
     width: 100%;
-    color: #b11030;
-    font-size: 1.5rem;
+    color: #B50000;
+    font-size: 1rem;
     font-family: 'Outfit';
 }
 
@@ -228,7 +196,7 @@ label {
     padding: 0.75rem;
     width: 100%;
     margin-bottom: 2px;
-    color: #f111d7;
+    color: #B50000;
     font-size: 1rem;
     font-family: 'Outfit';
 }
@@ -243,7 +211,7 @@ label {
     display: none;
     width: fit-content;
     max-width: 100%;
-    color: #FFB6C1;
+    color: #B50000;
     font-family: 'Outfit';
     margin: 2px auto 0;
     text-align: center;
@@ -339,6 +307,9 @@ table {
 .header {
     background-color: #FF9F2D;
     border-radius: 15px 15px 0 0;
+    max-height: 800px;
+    overflow: auto;
+    transition: opacity 0.5s ease;
 }
 
 .rows {
