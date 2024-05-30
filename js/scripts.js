@@ -416,6 +416,18 @@ function addSortRow() {
         });
         second.appendChild(sortLastName);
     }
+
+    if (document.querySelector("#next") == null) {
+        nexButton = document.createElement("button");
+        nexButton.setAttribute("id", "next");
+        nexButton.innerText = "Go next";
+        nexButton.addEventListener("click", () => {
+            _PAGE_COUNTER++;
+            const field = document.getElementById("searchInput").value;
+            query(field);
+        });
+        third.appendChild(nexButton);
+    }
     
     contactItem.appendChild(first);
     contactItem.appendChild(second);
