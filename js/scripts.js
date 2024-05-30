@@ -426,7 +426,7 @@ function display() {
     addSortRow();
     const rows = document.getElementById("main_table");
     for (const row of _SEARCH_TABLE._stack) {
-        rows.appendChild(row.contactItem);
+        rows.appendChild(row._contactItem);
     }
 }
 
