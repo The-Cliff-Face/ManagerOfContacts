@@ -507,6 +507,26 @@ function query(field) {
                         let phoneHint = document.createElement("hint");
                         emailHint.textContent = "Invalid email format";
                         phoneHint.textContent = "Invalid Phone Number format";
+
+                        phoneTd.addEventListener('input', function () {
+                            const input = this.value;
+                            if (!validatePhoneNumber(input)) {
+                                phone.style.outlineColor = "2px solid red";
+                            } else {
+                                phone.style.outlineColor = "2px solid green";
+                            }
+                        });
+
+                        emailTd.addEventListener('input', function () {
+                            const input = this.value;
+        
+                            if (!validateEmail(input)) {
+                                emailField.style.outlineColor = "2px solid red";
+                            } else {
+                                emailField.style.outlineColor = "2px solid green";
+                            }
+                        });
+
                         //phoneTd.appendChild(phoneHint);
                         //emailTd.appendChild(emailHint);
                         
