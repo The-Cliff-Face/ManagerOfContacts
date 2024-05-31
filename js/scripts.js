@@ -67,6 +67,9 @@ function goToSignup() {
 function clearAllFields() {
     var inputCollection = document.getElementsByTagName("input");
     for (var i = 0; i < inputCollection.length; i++) {
+        if (inputCollection[i].id == "contact-firstname" ||
+            inputCollection[i].id == "contact-lastname")
+            continue;
         inputCollection[i].value = "";
     }
 }
