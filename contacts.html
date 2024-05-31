@@ -82,25 +82,34 @@
             </tr>
         </table>
 
-    <table class="table-container">
-        <table class="table-scroll">
-        <table class="rows" id="main_table">
-            <tr>
-                <td><input type="text" id="addFirstNameInput" placeholder="First name" required /></td>
-                <td><input type="text" id="addLastNameInput" placeholder="Last name" required /></td>
-                <td><input type="text" id="addPhoneInput" placeholder="Phone Number" required />
-                    <span id="addPhoneResult"></span>
-                </td>
-                <td><input type="text" id="addEmailInput" placeholder="Email" required />
-                    <span id="addEmailResult"></span>
-                </td>
-                <td><button type="submit" id="addButton" onclick="addContact();">Add Contact</button></td>
-            </tr>
-            <tr></tr>
-            <!-- Append search results and edit/delete buttons -->
-        </table>
-        </table>
-    </table>
+        <div class="table-container">
+            <div class="table-scroll">
+                <table class="rows" id="main_table">
+                    <tr>
+                        <td>
+                            <input type="text" id="addFirstNameInput" placeholder="First name" required />
+                        </td>
+                        <td>
+                            <input type="text" id="addLastNameInput" placeholder="Last name" required />
+                        </td>
+                        <td>
+                            <input type="text" id="addPhoneInput" placeholder="Phone Number" required />
+                            <span id="addPhoneResult"></span>
+                        </td>
+                        <td>
+                            <input type="text" id="addEmailInput" placeholder="Email" required />
+                            <span id="addEmailResult"></span>
+                        </td>
+                        <td>
+                            <button type="submit" id="addButton" onclick="addContact();">Add Contact</button>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    
+                </table>
+            </div>
+        </div>
+        
 
     </div>
     <footer>
