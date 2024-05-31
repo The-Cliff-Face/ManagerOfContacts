@@ -507,8 +507,8 @@ function query(field) {
                         let phoneHint = document.createElement("hint");
                         emailHint.textContent = "Invalid email format";
                         phoneHint.textContent = "Invalid Phone Number format";
-                        phoneTd.appendChild(phoneHint);
-                        emailTd.appendChild(emailHint);
+                        //phoneTd.appendChild(phoneHint);
+                        //emailTd.appendChild(emailHint);
                         
 
                         contactItem.appendChild(firstNameTd);
