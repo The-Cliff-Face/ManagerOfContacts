@@ -24,7 +24,10 @@
             const errorEmail = document.getElementById('addEmailResult');
             const errorPhone = document.getElementById('addPhoneResult');
             const phoneField = document.getElementById('addPhoneInput');
-            if (emailInput && errorEmail && phoneField) {
+            const tableScroll = document.querySelector(".table-scroll");
+            let prevScrollPosition = 0;
+
+            if (emailInput && errorEmail && phoneField && tableScroll) {
                 emailInput.addEventListener('input', function () {
                     const input = this.value;
 
@@ -42,17 +45,21 @@
                         errorPhone.textContent = "";
                     }
                 })
+
+                tableScroll.addEventListener("scroll", function() {
+                    const currentScrollTop = tableScroll.scrollTop;
+                    if (currentScrollTop > lastScrollTop) {
+                        _PAGE_COUNTER++;
+                        const field = document.getElementById("searchInput").value;
+                        query(field);
+                    }
+                                
+                });
             }
         });
-        let prevScrollPosition = 0;
-        window.addEventListener('scroll', function() {
-            let scrollPosition = window.scrollY;
-            if (scrollPosition > prevScrollPosition) {
-                _PAGE_COUNTER++;
-                const field = document.getElementById("searchInput").value;
-                query(field);
-            }
-        });
+        
+
+        
 
     </script>
 </head>
