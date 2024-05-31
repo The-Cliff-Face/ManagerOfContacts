@@ -86,20 +86,19 @@ label {
     text-align: left;
     margin-inline-start: 45px;
 }
-/*.name-label, is now first-name*/ 
+
+/*.name-label, is now first-name*/
 .name-label {
     text-align: left;
     margin-inline-start: 6px;
 }
 
-.input-control
-{
+.input-control {
     display: flex;
     flex-direction: column;
 }
 
-.input-control input
-{
+.input-control input {
     border: 2px solid #f0f0f0;
     border-radius: 4px;
     display: block;
@@ -108,16 +107,15 @@ label {
     width: 100%;
 }
 
-.input-control input:focus{
+.input-control input:focus {
     outline: 0;
 }
 
-.input-control.success input{
+.input-control.success input {
     border-color: #09c372;
 }
 
-.input-control.error input
-{
+.input-control.error input {
     border-color: #ff3860;
     font-size: 9px;
     height: 13px;
@@ -213,7 +211,7 @@ label {
     padding: 0.75rem;
     width: 100%;
     color: #b11030;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-family: 'Outfit';
 }
 
@@ -227,10 +225,14 @@ label {
     border-radius: 10px;
     padding: 0.75rem;
     width: 100%;
+    color: #b11030;
+    font-size: 1.25rem;
+    font-family: 'Outfit';
+    /*
     margin-bottom: 2px;
     color: #f111d7;
     font-size: 1rem;
-    font-family: 'Outfit';
+    */
 }
 
 /* Username/Password Signup Error */
@@ -337,10 +339,11 @@ table {
 }
 
 .table-container {
-    max-height: 800px; 
+    max-height: 800px;
     overflow: auto;
     transition: opacity 0.5s ease;
 }
+
 .table-scroll {
     overflow-y: scroll;
 }
@@ -362,6 +365,7 @@ table {
     opacity: 1;
     transform: translateY(0);
 }
+
 #emailField:hover .hint {
     display: block;
     opacity: 1;
@@ -395,6 +399,11 @@ td button {
     text-decoration: none;
     font-size: 1rem;
     box-shadow: 3px 3px 3px #aa5d00;
+}
+
+/* Highlight row on hover */
+tr#search-entry:hover {
+    background-color: #fff0dd;
 }
 
 td button:hover {
