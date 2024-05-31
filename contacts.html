@@ -25,7 +25,7 @@
             const errorPhone = document.getElementById('addPhoneResult');
             const phoneField = document.getElementById('addPhoneInput');
             const tableScroll = document.querySelector(".table-scroll");
-            
+
             let prevScrollPosition = 0;
 
             if (emailInput && errorEmail && phoneField && tableScroll) {
@@ -49,7 +49,7 @@
                     }
                 })
 
-                tableScroll.addEventListener("scroll", function() {
+                tableScroll.addEventListener("scroll", function () {
                     console.log("moved");
                     const currentScrollTop = tableScroll.scrollTop;
                     if (currentScrollTop > lastScrollTop) {
@@ -58,13 +58,13 @@
                         const field = document.getElementById("searchInput").value;
                         query(field);
                     }
-                                
+
                 });
             }
         });
-        
 
-        
+
+
 
     </script>
 </head>
@@ -81,47 +81,48 @@
                 Search All
             </button>
             <label id="debugResult"></label>
-            
-        </div>
 
-        <table class="header">
-            <tr>
-                <th>First</th>
-                <th>Last</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th></th>
-            </tr>
-        </table>
+        </div>
 
         <div class="table-container">
             <div class="table-scroll">
                 <table class="rows" id="main_table">
-                    <tr>
-                        <td>
-                            <input type="text" id="addFirstNameInput" placeholder="First name" required />
-                        </td>
-                        <td>
-                            <input type="text" id="addLastNameInput" placeholder="Last name" required />
-                        </td>
-                        <td>
-                            <input type="text" id="addPhoneInput" placeholder="XXX-XXX-XXXX" required />
-                            <span id="addPhoneResult"></span>
-                        </td>
-                        <td>
-                            <input type="text" id="addEmailInput" placeholder="name@domain.com" required />
-                            <span id="addEmailResult"></span>
-                        </td>
-                        <td>
-                            <button type="submit" id="addButton" onclick="addContact();">Add Contact</button>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                    
+                    <thead>
+                        <tr>
+                            <th>First</th>
+                            <th>Last</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" id="addFirstNameInput" placeholder="First name" required />
+                            </td>
+                            <td>
+                                <input type="text" id="addLastNameInput" placeholder="Last name" required />
+                            </td>
+                            <td>
+                                <input type="text" id="addPhoneInput" placeholder="XXX-XXX-XXXX" required />
+                                <span id="addPhoneResult"></span>
+                            </td>
+                            <td>
+                                <input type="text" id="addEmailInput" placeholder="name@domain.com" required />
+                                <span id="addEmailResult"></span>
+                            </td>
+                            <td>
+                                <button type="submit" id="addButton" onclick="addContact();">Add Contact</button>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+
                 </table>
             </div>
         </div>
-        
+
 
     </div>
     <footer>
