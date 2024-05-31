@@ -511,9 +511,9 @@ function query(field) {
                         phoneTd.addEventListener('input', function () {
                             const input = this.value;
                             if (!validatePhoneNumber(input)) {
-                                phone.style.outlineColor = "2px solid red";
+                                phone.style.outlineColor = "red";
                             } else {
-                                phone.style.outlineColor = "2px solid green";
+                                phone.style.outlineColor = "green";
                             }
                         });
 
@@ -521,9 +521,9 @@ function query(field) {
                             const input = this.value;
         
                             if (!validateEmail(input)) {
-                                emailField.style.outlineColor = "2px solid red";
+                                emailField.style.outlineColor = "red";
                             } else {
-                                emailField.style.outlineColor = "2px solid green";
+                                emailField.style.outlineColor = "green";
                             }
                         });
 
