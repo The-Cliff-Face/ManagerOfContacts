@@ -303,6 +303,15 @@ table {
     align-self: center;
     font-size: 1.5rem;
 }
+.table-container {
+    max-height: 300px; /* Adjust height as needed */
+    overflow: auto;
+    transition: opacity 0.5s ease;
+}
+.table-scroll {
+    overflow-y: scroll;
+}
+
 
 .header {
     background-color: #FF9F2D;
@@ -311,9 +320,6 @@ table {
 
 .rows {
     border-radius: 0 0 15px 15px;
-    max-height: 300px;
-    overflow: auto;
-    transition: opacity 0.5s ease;
 }
 
 td input {
