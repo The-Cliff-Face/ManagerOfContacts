@@ -728,6 +728,12 @@ function addContact() {
         return; // TODO: add some sort of error message
     }
 
+    // avoid processing blank names
+    if (firstName === "" || lastName === "") {
+        console.log("failed!");
+        return; // TODO: add some sort of error message
+    }
+
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
 
