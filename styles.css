@@ -381,6 +381,11 @@ table {
     border-radius: 0 0 15px 15px;
 }
 
+/* Highlight row on hover */
+tr#search-entry:hover {
+    background-color: #fff0dd;
+}
+
 td input {
     padding: 0.5rem;
     border: 2px solid black;
@@ -401,15 +406,28 @@ td button {
     box-shadow: 3px 3px 3px #aa5d00;
 }
 
-/* Highlight row on hover */
-tr#search-entry:hover {
-    background-color: #fff0dd;
-}
-
 td button:hover {
     cursor: pointer;
     background: #FF9F2D;
     color: black;
+}
+
+td button#edit-button:after {
+    font-family: "FontAwesome";
+    content: "\f040";
+    font-size: x-large;
+}
+
+td button#delete-button:after {
+    font-family: "FontAwesome";
+    content: "\f1f8";
+    font-size: x-large;
+}
+
+td button#save-button:after {
+    font-family: "FontAwesome";
+    content: "\f0c7";
+    font-size: x-large;
 }
 
 /* Search Bar */
