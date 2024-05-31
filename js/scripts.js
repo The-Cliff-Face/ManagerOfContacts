@@ -563,7 +563,8 @@ function query(field) {
                                 saveButton.setAttribute("id", "saveButton");
                                 saveButton.innerText = "Save Edits";
                                 saveButton.addEventListener("click", () => {
-                                    doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
+                                    doEdit(firstNameTd.textContent, lastNameTd.textContent, phoneTd.textContent, emailTd.textContent, item.id);
+                                    //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
 
                                     // now that the editing is done, go back to normal
                                     firstNameTd.setAttribute("contenteditable", "false");
