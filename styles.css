@@ -342,6 +342,29 @@ td button {
     box-shadow: 3px 3px 3px #aa5d00;
 }
 
+.hint {
+    display: none;
+    position: absolute;
+    background-color: #ffffcc;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+#phoneField:hover .hint {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+#emailField:hover .hint {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
 td button:hover {
     cursor: pointer;
     background: #FF9F2D;

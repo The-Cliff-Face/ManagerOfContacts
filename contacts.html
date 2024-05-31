@@ -25,6 +25,8 @@
             const errorPhone = document.getElementById('addPhoneResult');
             const phoneField = document.getElementById('addPhoneInput');
             const tableScroll = document.querySelector(".table-scroll");
+            const emailField = document.getElementById('emailField');
+            const phone = document.getElementById('phoneField');
             let prevScrollPosition = 0;
 
             if (emailInput && errorEmail && phoneField && tableScroll) {
@@ -37,6 +39,18 @@
                         errorEmail.textContent = "";
                     }
                 })
+
+                emailField.addEventListener('input', function () {
+                    const input = this.value;
+
+                    if (!validateEmail(input)) {
+                        emailField.style.outlineColor = "2px solid red";
+                    } else {
+                        emailField.style.outlineColor = "2px solid green";
+                    }
+                })
+
+
                 phoneField.addEventListener('input', function () {
                     const input = this.value;
                     if (!validatePhoneNumber(input)) {
@@ -45,6 +59,17 @@
                         errorPhone.textContent = "";
                     }
                 })
+
+                phone.addEventListener('input', function () {
+                    const input = this.value;
+                    if (!validatePhoneNumber(input)) {
+                        emailField.style.outlineColor = "2px solid red";
+                    } else {
+                        emailField.style.outlineColor = "2px solid green";
+                    }
+                })
+                
+
 
                 tableScroll.addEventListener("scroll", function() {
                     console.log("moved");
