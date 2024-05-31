@@ -556,7 +556,10 @@ function query(field) {
                     });
                     display();
                 } else {
-                    displayNoResults();
+                    if (_PAGE_COUNTER == 1) {
+                        displayNoResults();
+                    }
+                   
                 }
 
             }
