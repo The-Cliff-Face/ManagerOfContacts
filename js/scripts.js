@@ -493,13 +493,23 @@ function query(field) {
                         let firstNameTd = document.createElement("td");
                         let lastNameTd = document.createElement("td");
                         let phoneTd = document.createElement("td");
+                        phoneTd.setAttribute("id","phoneField");
                         let emailTd = document.createElement("td");
+                        emailTd.setAttribute("id","emailField");
                         let buttons = document.createElement("td");
 
                         firstNameTd.textContent = `${item.firstName}`;
                         lastNameTd.textContent = `${item.lastName}`;
                         phoneTd.textContent = `${item.phone}`;
                         emailTd.textContent = `${item.email}`;
+
+                        let emailHint = document.createElement("hint");
+                        let phoneHint = document.createElement("hint");
+                        emailHint.textContent = "Invalid email format";
+                        phoneHint.textContent = "Invalid Phone Number format";
+                        phoneTd.appendChild(phoneHint);
+                        emailTd.appendChild(emailHint);
+                        
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
