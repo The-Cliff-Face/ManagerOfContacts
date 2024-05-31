@@ -338,6 +338,14 @@ table {
     font-size: 1.5rem;
 }
 
+thead {
+    background-color: #FF9F2D;
+}
+
+thead th {
+    border-bottom: 3px solid black;
+}
+
 .table-container {
     max-height: 800px;
     overflow: auto;
@@ -372,13 +380,8 @@ table {
     transform: translateY(0);
 }
 
-.header {
-    background-color: #FF9F2D;
-    border-radius: 15px 15px 0 0;
-}
-
 .rows {
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px;
 }
 
 /* Highlight row on hover */
