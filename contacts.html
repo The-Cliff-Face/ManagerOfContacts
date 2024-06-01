@@ -54,7 +54,8 @@
             tableScroll.addEventListener("scroll", function () {
                 console.log("moved");
                 const currentScrollTop = tableScroll.scrollTop;
-                if (currentScrollTop > lastScrollTop) {
+                if (currentScrollTop > prevScrollPosition) {
+                    prevScrollPosition  = currentScrollTop;
                     console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
