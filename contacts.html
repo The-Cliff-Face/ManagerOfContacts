@@ -19,16 +19,18 @@
         const MAX_PAGE_SIZE = 10;
 
 
+        
+
         document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
             const errorEmail = document.getElementById('addEmailResult');
             const errorPhone = document.getElementById('addPhoneResult');
             const phoneField = document.getElementById('addPhoneInput');
-            const tableScroll = document.querySelector(".table-scroll");
+            
 
             let prevScrollPosition = 0;
 
-            if (emailInput && errorEmail && phoneField && tableScroll) {
+            if (emailInput && errorEmail && phoneField) {
                 emailInput.addEventListener('input', function () {
                     const input = this.value;
 
@@ -37,9 +39,7 @@
                     } else {
                         errorEmail.textContent = "";
                     }
-                })
-
-
+                });
                 phoneField.addEventListener('input', function () {
                     const input = this.value;
                     if (!validatePhoneNumber(input)) {
@@ -47,20 +47,20 @@
                     } else {
                         errorPhone.textContent = "";
                     }
-                })
-
-                tableScroll.addEventListener("scroll", function () {
-                    console.log("moved");
-                    const currentScrollTop = tableScroll.scrollTop;
-                    if (currentScrollTop > lastScrollTop) {
-                        console.log("down");
-                        _PAGE_COUNTER++;
-                        const field = document.getElementById("searchInput").value;
-                        query(field);
-                    }
-
                 });
             }
+
+            const tableScroll = document.getElementById("entry_table");
+            tableScroll.addEventListener("scroll", function () {
+                console.log("moved");
+                const currentScrollTop = tableScroll.scrollTop;
+                if (currentScrollTop > lastScrollTop) {
+                    console.log("down");
+                    _PAGE_COUNTER++;
+                    const field = document.getElementById("searchInput").value;
+                    query(field);
+                }
+            });
         });
 
 
@@ -84,7 +84,7 @@
 
         </div>
 
-        <div class="table-container">
+        <div class="table-container" id="entry_table">
             <div class="table-scroll">
                 <table class="rows" id="main_table" cellspacing="0">
                     <thead>
