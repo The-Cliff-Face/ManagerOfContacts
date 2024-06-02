@@ -15,6 +15,7 @@
     <script src="js/searchentry.js"></script>
     <script>
         let _SEARCH_TABLE = new SearchTable();
+        let QUERY_SET = new Set();
         let _PAGE_COUNTER = 1;
         const MAX_PAGE_SIZE = 10;
 
@@ -59,8 +60,17 @@
                     console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
+                    if (QUERY_SET.has(_PAGE_COUNTER)) {return;}
                     query(field);
+                    QUERY_SET.add(_PAGE_COUNTER);
+                    
+                } else {
+                    console.log("up");
+                    prevScrollPosition  = currentScrollTop;
+                    _PAGE_COUNTER--;
+
                 }
+                
             });
         });
 
