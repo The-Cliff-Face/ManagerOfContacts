@@ -267,68 +267,45 @@ function doEdit(firstName, lastName, phone, email, contactId) {
 function debug_search() {
     clearSearchEntryField();
     const rows = document.getElementById("main_table");
-    let contactItem = document.createElement("tr");
-    contactItem.setAttribute("id", "search-entry");
-    let firstNameTd = document.createElement("td");
-    let lastNameTd = document.createElement("td");
-    let phoneTd = document.createElement("td");
-    let emailTd = document.createElement("td");
-    let buttons = document.createElement("td");
-
-    firstNameTd.textContent = 'Johnathan';
-    lastNameTd.textContent = 'Doe';
-    phoneTd.textContent = '123-456-7890';
-    emailTd.textContent = 'john_doe@ucf.edu';
-
-    contactItem.appendChild(firstNameTd);
-    contactItem.appendChild(lastNameTd);
-    contactItem.appendChild(phoneTd);
-    contactItem.appendChild(emailTd);
-
-    deleteButton = document.createElement("button");
-    deleteButton.innerText = "Delete";
-    deleteButton.addEventListener("click", () => {
-        //doDelete(item.id);
-        contactItem.remove();
-    });
-    buttons.appendChild(deleteButton);
-
-    // make the edit button for this contact.
-    editButton = document.createElement("button");
-    editButton.innerText = "Edit";
-    editButton.addEventListener("click", () => {
-        // allow the user to edit the text in the various fields.
-        firstNameTd.setAttribute("contenteditable", "true");
-        lastNameTd.setAttribute("contenteditable", "true");
-        phoneTd.setAttribute("contenteditable", "true");
-        emailTd.setAttribute("contenteditable", "true");
-
-        // create a button to save the user's edits.
-        if (document.querySelector("#saveButton") == null) {
-            saveButton = document.createElement("button");
-            saveButton.setAttribute("id", "saveButton");
-            saveButton.innerText = "Save Edits";
-            saveButton.addEventListener("click", () => {
-                //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
-
-                // now that the editing is done, go back to normal
-                firstNameTd.setAttribute("contenteditable", "false");
-                lastNameTd.setAttribute("contenteditable", "false");
-                phoneTd.setAttribute("contenteditable", "false");
-                emailTd.setAttribute("contenteditable", "false");
-                saveButton.remove();
-            });
-            buttons.appendChild(saveButton);
+    
+    for (let i = 0; i < 50; i++) {
+        let contactItem = document.createElement("tr");
+        contactItem.setAttribute("id", "search-entry-" + i);
+        if (i%2==0) {
+            contactItem.style.background = "#facc93";
         }
+        
+        let firstNameTd = document.createElement("td");
+        let lastNameTd = document.createElement("td");
+        let phoneTd = document.createElement("td");
+        phoneTd.setAttribute("id","phoneField");
+        let emailTd = document.createElement("td");
+        let buttons = document.createElement("td");
 
+        attachListeners(phoneTd,emailTd);
 
-    });
-    buttons.appendChild(editButton);
-    contactItem.appendChild(buttons);
-    //contactsContainer.appendChild(contactItem);
-    rows.appendChild(contactItem);
+        firstNameTd.textContent = 'Johnathan';
+        lastNameTd.textContent = 'Doe';
+        phoneTd.textContent = '123-456-7890';
+        emailTd.textContent = 'john_doe@ucf.edu';
 
+        contactItem.appendChild(firstNameTd);
+        contactItem.appendChild(lastNameTd);
+        contactItem.appendChild(phoneTd);
+        contactItem.appendChild(emailTd);
+
+        deleteButton = deleteButtonHandler();
+        buttons.appendChild(deleteButton);
+
+        // make the edit button for this contact.
+        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, i);
+
+        buttons.appendChild(editButton);
+        contactItem.appendChild(buttons);
+        rows.appendChild(contactItem);
+    }
 }
+
 
 
 function clearSearchEntryField() {
@@ -472,6 +449,118 @@ function display() {
 }
 
 
+function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item) {
+    let editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+
+    editButton.addEventListener("click", () => {
+        
+        firstNameTd.setAttribute("contenteditable", "true");
+        lastNameTd.setAttribute("contenteditable", "true");
+        phoneTd.setAttribute("contenteditable", "true");
+        emailTd.setAttribute("contenteditable", "true");
+
+        if (document.querySelector("#saveButton") == null) {
+            let saveButton = document.createElement("button");
+            saveButton.setAttribute("id", "saveButton");
+            saveButton.innerText = "Save";
+            saveButton.addEventListener("click", () => {
+                doEdit(
+                    firstNameTd.textContent,
+                    lastNameTd.textContent,
+                    phoneTd.childNodes[0].textContent,
+                    emailTd.childNodes[0].textContent,
+                    item.id,
+                );
+
+                firstNameTd.setAttribute("contenteditable", "false");
+                lastNameTd.setAttribute("contenteditable", "false");
+                phoneTd.setAttribute("contenteditable", "false");
+                emailTd.setAttribute("contenteditable", "false");
+
+                // Create new delete button
+                let newDeleteButton = deleteButtonHandler();
+                // Create new edit button and attach event listener
+                let newEditButton = editButtonHandler(buttons, newDeleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
+                buttons.appendChild(newDeleteButton);
+                buttons.appendChild(newEditButton);
+                saveButton.remove();
+            });
+            buttons.appendChild(saveButton);
+        }
+        deleteButton.remove();
+        editButton.remove();
+    });
+    return editButton;
+}
+
+
+
+function deleteButtonHandler() {
+    deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", () => {
+        if (window.confirm("Really delete this contact?")) {
+            doDelete(item.id);
+            contactItem.remove();
+        }
+    });
+    return deleteButton;
+}
+
+function showHint(target, message = "Error", type= "generic-error-hint") {
+    if (document.querySelector("#"+type) == null) {
+        let hint = document.createElement("div");
+        hint.setAttribute("id", type);
+        hint.setAttribute("contenteditable", "false");
+        let text = document.createElement("span");
+        text.textContent = message;
+        hint.appendChild(text);
+        hint.className = "hint-message";
+        target.appendChild(hint);
+    }
+    
+}
+
+function hideHint(target, id) {
+    for (let node of target.childNodes) {
+        if (node.nodeType === Node.ELEMENT_NODE && node.id === id) {
+            target.removeChild(node);
+            break;
+        }
+    }
+}
+
+
+
+function attachListeners(phoneTd, emailTd, item) {
+    phoneTd.addEventListener('input', function () {
+        
+        const input = phoneTd.childNodes[0].textContent;
+        if (!validatePhoneNumber(input)) {
+            console.log(input);
+            phoneTd.style.outlineColor = "red";
+            showHint(phoneTd, "Invalid phone format", "phone-hint-error");
+        } else {
+            hideHint(phoneTd, "phone-hint-error");
+            phoneTd.style.outlineColor = "green";
+        }
+    });
+
+    emailTd.addEventListener('input', function () {
+        const input = emailTd.childNodes[0].textContent;
+        if (!validateEmail(input)) {
+            showHint(emailTd, "Invalid email format", "email-hint-error");
+            emailTd.style.outlineColor = "red";
+        } else {
+            hideHint(emailTd, "email-hint-error");
+            emailTd.style.outlineColor = "green";
+    }
+    });
+}
+
+
+
 function query(field) {
     if (typeof _SEARCH_TABLE == 'undefined') {
         console.error("Something weird happened?");
@@ -500,8 +589,12 @@ function query(field) {
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
                     //const contactsContainer = document.getElementById("contactsContainer");
+                    counter = 0;
+
                     searchResults.forEach(item => {
                         let contactItem = document.createElement("tr");
+                        if (counter % 2 == 0) {contactItem.style.background = "#facc93";} 
+                        counter+=1;
                         contactItem.setAttribute("id", "search-entry");
                         //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
@@ -517,34 +610,8 @@ function query(field) {
                         lastNameTd.textContent = `${item.lastName}`;
                         phoneTd.textContent = `${item.phone}`;
                         emailTd.textContent = `${item.email}`;
-
-                        let emailHint = document.createElement("hint");
-                        let phoneHint = document.createElement("hint");
-                        emailHint.textContent = "Invalid email format";
-                        phoneHint.textContent = "Invalid Phone Number format";
-
-                        phoneTd.addEventListener('input', function () {
-                            const input = this.value;
-                            if (!validatePhoneNumber(input)) {
-                                phoneTd.style.outlineColor = "red";
-                            } else {
-                                phoneTd.style.outlineColor = "green";
-                            }
-                        });
-
-                        emailTd.addEventListener('input', function () {
-                            const input = this.value;
-        
-                            if (!validateEmail(input)) {
-                                emailTd.style.outlineColor = "red";
-                            } else {
-                                emailTd.style.outlineColor = "green";
-                            }
-                        });
-
-                        //phoneTd.appendChild(phoneHint);
-                        //emailTd.appendChild(emailHint);
-                        
+                        attachListeners(phoneTd,emailTd);
+                    
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
@@ -552,47 +619,11 @@ function query(field) {
                         contactItem.appendChild(emailTd);
 
                         // make the delete button for this contact.
-                        deleteButton = document.createElement("button");
-                        deleteButton.innerText = "Delete";
-                        deleteButton.addEventListener("click", () => {
-                            if (window.confirm("Really delete this contact?")) {
-                                doDelete(item.id);
-                                contactItem.remove();
-                            }
-                        });
+                        deleteButton = deleteButtonHandler();
                         buttons.appendChild(deleteButton);
 
                         // make the edit button for this contact.
-                        editButton = document.createElement("button");
-                        editButton.innerText = "Edit";
-                        editButton.addEventListener("click", () => {
-                            // allow the user to edit the text in the various fields.
-                            firstNameTd.setAttribute("contenteditable", "true");
-                            lastNameTd.setAttribute("contenteditable", "true");
-                            phoneTd.setAttribute("contenteditable", "true");
-                            emailTd.setAttribute("contenteditable", "true");
-
-                            // create a button to save the user's edits.
-                            if (document.querySelector("#saveButton") == null) {
-                                saveButton = document.createElement("button");
-                                saveButton.setAttribute("id", "saveButton");
-                                saveButton.innerText = "Save Edits";
-                                saveButton.addEventListener("click", () => {
-                                    doEdit(firstNameTd.textContent, lastNameTd.textContent, phoneTd.textContent, emailTd.textContent, item.id);
-                                    //doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
-
-                                    // now that the editing is done, go back to normal
-                                    firstNameTd.setAttribute("contenteditable", "false");
-                                    lastNameTd.setAttribute("contenteditable", "false");
-                                    phoneTd.setAttribute("contenteditable", "false");
-                                    emailTd.setAttribute("contenteditable", "false");
-                                    saveButton.remove();
-                                });
-                                buttons.appendChild(saveButton);
-                            }
-
-
-                        });
+                        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
                         let entry = new SearchEntry(item.firstName,item.lastName, contactItem);
