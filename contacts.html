@@ -27,11 +27,10 @@
             const emailInput = document.getElementById('addEmailInput');
             const errorEmail = document.getElementById('addEmailResult');
             const errorPhone = document.getElementById('addPhoneResult');
-            const phoneField = document.getElementById('addPhoneInput');
+            const phoneField = document.getElementById('addPhoneInput')
+            const phoneTd = document.getElementById("phoneField");
+            const emailTd = document.getElementById("emailField");
             
-
-           
-
             if (emailInput && errorEmail && phoneField) {
                 emailInput.addEventListener('input', function () {
                     const input = this.value;
@@ -87,7 +86,7 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i class="fa fa-search"></i></button>
+                    id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i class="fa fa-search"></i></button> 
             </label>
             <button onclick="searchWrapper(true);">
                 Search All
@@ -116,11 +115,12 @@
                             <td>
                                 <input type="text" id="addLastNameInput" placeholder="Last name" required />
                             </td>
-                            <td>
+                            <td id="tableCellHasError">
                                 <input type="text" id="addPhoneInput" placeholder="XXX-XXX-XXXX" required />
+                                </br>
                                 <span id="addPhoneResult"></span>
                             </td>
-                            <td>
+                            <td id="tableCellHasError">
                                 <input type="text" id="addEmailInput" placeholder="name@domain.com" required />
                                 <span id="addEmailResult"></span>
                             </td>
