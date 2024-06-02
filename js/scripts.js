@@ -347,11 +347,10 @@ function onlyClearHTML() {
 
 function searchWrapper(showAllBoolean) {
     const field = document.getElementById("searchInput").value;
-    
     if (showAllBoolean || field != "") {
         _PAGE_COUNTER = 1;
         clearSearchEntryField();
-        query(field);
+        if (showAllBoolean) {query('');} else { query(field);}
         display();
         return;
     }
@@ -383,6 +382,18 @@ function displayNoResults() {
     rows.appendChild(contactItem);
 
 }
+
+function incrementPagination() {
+    
+    console.log("im here!");
+
+    if (_SEARCH_TABLE._size <= 0) {return;} // false alarm
+    _PAGE_COUNTER++;
+    const field = document.getElementById("searchInput").value;
+    query(field);
+
+}
+
 
 function addSortRow() {
     const rows = document.getElementById("main_table");
@@ -419,18 +430,17 @@ function addSortRow() {
         });
         second.appendChild(sortLastName);
     }
-
+    /*
     if (document.querySelector("#next") == null) {
         nexButton = document.createElement("button");
         nexButton.setAttribute("id", "next");
         nexButton.innerText = "Go next";
         nexButton.addEventListener("click", () => {
-            _PAGE_COUNTER++;
-            const field = document.getElementById("searchInput").value;
-            query(field);
+            incrementPagination();
         });
         third.appendChild(nexButton);
     }
+    */
     
     contactItem.appendChild(first);
     contactItem.appendChild(second);
