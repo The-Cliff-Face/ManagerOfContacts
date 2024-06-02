@@ -350,6 +350,8 @@ function searchWrapper(showAllBoolean) {
     if (showAllBoolean || field != "") {
         _PAGE_COUNTER = 1;
         clearSearchEntryField();
+        QUERY_SET = new Set();
+        prevScrollPosition = 0;
         if (showAllBoolean) {query('');} else { query(field);}
         display();
         return;
