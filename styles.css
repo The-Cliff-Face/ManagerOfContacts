@@ -330,9 +330,9 @@ table {
     margin-left: auto;
     margin-right: auto;
     width: 75%;
-    padding: 0.5rem;
-    border: 2px solid black;
-    background-color: #ffd9ab; /*#ffd9ab*/
+    border: 3px solid black;
+    background-color: #ffd9ab;
+    /*#ffd9ab*/
     border-radius: 15px;
     text-align: left;
     align-self: center;
@@ -346,10 +346,23 @@ thead {
 
 thead th {
     border-bottom: 3px solid black;
+    padding: 0.5rem;
 }
-td,th {
+
+thead th:first-child {
+    border-radius: 15px 0px 0px 0px;
+}
+
+thead th:last-child {
+    border-radius: 0px 15px 0px 0px;
+}
+
+td,
+th {
     overflow: hidden;
+    padding: 0.25rem;
 }
+
 tr:nth-child(even) {
     background-color: #facc93;
 }
@@ -399,7 +412,7 @@ tr:nth-child(even) {
     z-index: 10;
     font-size: smaller;
     transform: scale(0.8);
-    pointer-events:none;
+    pointer-events: none;
 }
 
 .hint-message.show {
@@ -410,31 +423,34 @@ tr:nth-child(even) {
 
 @keyframes hintAnimation {
     from {
-      opacity: 0;
-      transform: translateY(-5px);
-      
+        opacity: 0;
+        transform: translateY(-5px);
+
     }
+
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @keyframes hintDisappear {
     from {
-      opacity: 1;
-      transform: translateY(0px);
-      
+        opacity: 1;
+        transform: translateY(0px);
+
     }
+
     to {
-      opacity: 1;
-      transform: translateY(-5px);
+        opacity: 1;
+        transform: translateY(-5px);
     }
 }
 
 .hint-message.animated {
     animation: hintAnimation 0.5s ease-out forwards;
-}   
+}
+
 .hint-message.disappear {
     animation: hintDisappear 0.5s ease-out forwards;
 }
@@ -443,29 +459,32 @@ tr:nth-child(even) {
 
 #addEmailInput {
     margin-bottom: 2px;
+    width: 75%;
 }
+
 #addPhoneInput {
     margin-bottom: 2px;
 }
 
 #addPhoneResult {
-    display: block; 
+    display: block;
     /*margin-top: 1px;*/
-    color: red;
+    color: #b11030;
     font-size: 1rem;
 }
 
 
 #addEmailResult {
-    display: block; 
+    display: block;
     /*margin-top: 1px;*/
-    color: red;
+    color: #b11030;
     font-size: 1rem;
 }
+
 #tableCellHasError {
     width: 100%;
     flex-direction: column;
-    
+
 }
 
 .rows {
@@ -503,6 +522,12 @@ td button:hover {
     cursor: pointer;
     background: #FF9F2D;
     color: black;
+}
+
+td button:active {
+    background: #FF9F2D;
+    color: black;
+    box-shadow: 1px 1px 1px #000000;
 }
 
 td button#edit-button:after {
@@ -568,4 +593,3 @@ footer {
     width: 100%;
     height: 75px;
 }
-
