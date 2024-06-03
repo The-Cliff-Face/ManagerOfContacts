@@ -179,7 +179,7 @@ function signupCheck(username, firstname, lastname, password) {
 }
 
 function calculateRows() {
-    let windowHeight = window.innerHeight;
+    let windowHeight = 800;
     let tableRow = document.querySelector('#main_table'); 
     let tableRowStyles = window.getComputedStyle(tableRow);
     let tableRowFontSize = parseFloat(tableRowStyles.getPropertyValue('font-size'));
