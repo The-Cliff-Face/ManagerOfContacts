@@ -367,8 +367,15 @@ tr:nth-child(even) {
     background-color: #facc93;
 }
 
+tr:last-child td:first-child {
+    border-radius: 0px 0px 0px 0px 15px;
+}
+
+tr:last-child td:last-child {
+    border-radius: 0px 0px 15px 0px;
+}
+
 .table-container {
-    max-height: 800px;
     overflow: auto;
 }
 
@@ -579,6 +586,13 @@ td button#save-button:after {
     border-left: none;
     box-shadow: inset 2px 2px 2px #ccc;
     cursor: pointer;
+}
+
+.search-bar button#refresh-button {
+    font-family: "FontAwesome";
+    font-size: large;
+    background-color: #ddd;
+    border-radius: 50%;
 }
 
 /* Footer */
