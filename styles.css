@@ -368,7 +368,6 @@ tr:nth-child(even) {
 }
 
 .table-container {
-    max-height: 800px;
     overflow: auto;
 }
 
