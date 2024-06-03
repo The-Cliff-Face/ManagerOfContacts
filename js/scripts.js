@@ -266,7 +266,7 @@ function doDelete(contactId) {
 function doEdit(firstName, lastName, phone, email, contactId) {
     if (!validatePhoneNumber(phone) || !validateEmail(email)) {
         window.alert("Invalid format of phone or email!");
-        return;
+        return -1;
     }
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, contactId: contactId };
     let jsonPayload = JSON.stringify(tmp);
@@ -281,7 +281,9 @@ function doEdit(firstName, lastName, phone, email, contactId) {
     catch (err) {
         window.alert(err.message);
         console.log(err);
+        return -1;
     }
+    return 1;
 }
 
 
@@ -483,13 +485,14 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
             saveButton.setAttribute("id", "saveButton");
             saveButton.innerText = "Save";
             saveButton.addEventListener("click", () => {
-                doEdit(
+                let res = doEdit(
                     firstNameTd.textContent,
                     lastNameTd.textContent,
                     phoneTd.childNodes[0].textContent,
                     emailTd.childNodes[0].textContent,
                     item.id,
                 );
+                if (res < 0) {return;}
 
                 firstNameTd.setAttribute("contenteditable", "false");
                 lastNameTd.setAttribute("contenteditable", "false");
