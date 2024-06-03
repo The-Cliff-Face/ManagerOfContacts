@@ -457,7 +457,7 @@ function display() {
 }
 
 
-function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item) {
+function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem) {
     let editButton = document.createElement("button");
     editButton.innerText = "Edit";
 
@@ -487,7 +487,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                 emailTd.setAttribute("contenteditable", "false");
 
                 // Create new delete button
-                let newDeleteButton = deleteButtonHandler();
+                let newDeleteButton = deleteButtonHandler(contactItem, item);
                 // Create new edit button and attach event listener
                 let newEditButton = editButtonHandler(buttons, newDeleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
                 buttons.appendChild(newDeleteButton);
@@ -504,7 +504,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
 
 
 
-function deleteButtonHandler() {
+function deleteButtonHandler(contactItem, item) {
     deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
@@ -648,11 +648,11 @@ function query(field) {
                         contactItem.appendChild(emailTd);
 
                         // make the delete button for this contact.
-                        deleteButton = deleteButtonHandler();
+                        deleteButton = deleteButtonHandler(contactItem, item);
                         buttons.appendChild(deleteButton);
 
                         // make the edit button for this contact.
-                        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
+                        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item,contactItem);
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
                         let entry = new SearchEntry(item.firstName,item.lastName, contactItem);
