@@ -796,8 +796,13 @@ function search(field) {
 
 
 function addContact() {
-    let userId = getUserId();
-    if (userId < 0) { console.log("failed"); return; }
+    try {
+        let userId = getUserId();
+    } catch (err) {
+        window.alert("You are no longer signed in, please sign in again");
+    }
+    
+    if (userId < 0) { window.alert("You are no longer signed in, please sign in again"); return; }
 
 
     let firstName = document.getElementById("addFirstNameInput").value;
@@ -806,13 +811,13 @@ function addContact() {
     let email = document.getElementById("addEmailInput").value;
 
     if (!validatePhoneNumber(phone) && !validateEmail(email)) {
-        console.log("failed!");
+        window.alert("Invalid formatting of email / phone");
         return; // TODO: add some sort of error message
     }
 
     // avoid processing blank names
     if (firstName === "" || lastName === "") {
-        console.log("failed!");
+        window.alert("You cannot have blank first or last names");
         return; // TODO: add some sort of error message
     }
 
@@ -829,6 +834,7 @@ function addContact() {
         xhr.send(jsonPayload);
     }
     catch (err) {
+        window.alert("Oops error message:" +err);
         console.log(err);
     }
 
@@ -837,4 +843,5 @@ function addContact() {
     document.getElementById("addLastNameInput").value = "";
     document.getElementById("addPhoneInput").value = "";
     document.getElementById("addEmailInput").value = "";
+    window.alert("Successfully Added Contact");
 }
