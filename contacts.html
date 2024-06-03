@@ -19,7 +19,7 @@
         let _PAGE_COUNTER = 1;
         let MAX_PAGE_SIZE = 10;
         let prevScrollPosition = 0;
-        
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
@@ -77,25 +77,25 @@
             const tableScroll = document.getElementById("entry_table");
 
             tableScroll.addEventListener("scroll", function () {
-                
+
                 const currentScrollTop = tableScroll.scrollTop;
                 console.log(`${prevScrollPosition} ${currentScrollTop}`);
                 if (currentScrollTop > prevScrollPosition) {
-                    prevScrollPosition  = currentScrollTop;
+                    prevScrollPosition = currentScrollTop;
                     console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
-                    if (QUERY_SET.has(_PAGE_COUNTER)) {return;}
+                    if (QUERY_SET.has(_PAGE_COUNTER)) { return; }
                     query(field);
                     QUERY_SET.add(_PAGE_COUNTER);
-                    
+
                 } else {
                     console.log("up");
-                    prevScrollPosition  = currentScrollTop;
+                    prevScrollPosition = currentScrollTop;
                     _PAGE_COUNTER--;
 
                 }
-                
+
             });
             /*
             window.addEventListener('resize', function () {
@@ -119,10 +119,10 @@
                     id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i
                         class="fa fa-search"></i></button>
             </label>
-            <button id="refresh-button" onclick="searchWrapper(true);">
+            <button id="refresh-button" aria-label="Load Contacts" onclick="searchWrapper(true);">
                 <i class="fa fa-refresh"></i>
             </button>
-            
+
 
         </div>
 
