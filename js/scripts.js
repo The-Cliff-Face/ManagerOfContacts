@@ -796,8 +796,9 @@ function search(field) {
 
 
 function addContact() {
+    let userId = -1;
     try {
-        let userId = getUserId();
+        userId = getUserId();
     } catch (err) {
         window.alert("You are no longer signed in, please sign in again");
     }
