@@ -14,7 +14,7 @@ function invalidLoginAnimation() {
 function setUpContactsPage() {
     const container = document.getElementById('entry_table');
     container.style.maxHeight = window.innerHeight;
-    
+
 }
 
 function doLogin() {
@@ -186,7 +186,7 @@ function signupCheck(username, firstname, lastname, password) {
 
 function calculateRows() {
     let windowHeight = window.innerHeight;
-    let tableRow = document.querySelector('#main_table'); 
+    let tableRow = document.querySelector('#main_table');
     let tableRowStyles = window.getComputedStyle(tableRow);
     let tableRowFontSize = parseFloat(tableRowStyles.getPropertyValue('font-size'));
     let rowHeight = tableRowFontSize + 15;
@@ -291,20 +291,20 @@ function debug_search() {
     clearSearchEntryField();
     const rows = document.getElementById("main_table");
     console.log(MAX_PAGE_SIZE);
-    
+
     for (let i = 0; i < MAX_PAGE_SIZE; i++) {
         let contactItem = document.createElement("tr");
         contactItem.setAttribute("id", "search-entry-" + i);
-        
-        
+
+
         let firstNameTd = document.createElement("td");
         let lastNameTd = document.createElement("td");
         let phoneTd = document.createElement("td");
-        phoneTd.setAttribute("id","phoneField");
+        phoneTd.setAttribute("id", "phoneField");
         let emailTd = document.createElement("td");
         let buttons = document.createElement("td");
 
-        attachListeners(phoneTd,emailTd, i);
+        attachListeners(phoneTd, emailTd, i);
 
         firstNameTd.textContent = 'Johnathan';
         lastNameTd.textContent = 'Doe';
@@ -351,11 +351,11 @@ function searchWrapper(showAllBoolean) {
         clearSearchEntryField();
         QUERY_SET = new Set();
         prevScrollPosition = 0;
-        if (showAllBoolean) {query('');} else { query(field);}
+        if (showAllBoolean) { query(''); } else { query(field); }
         display();
         return;
     }
-    
+
     displayNoResults();
 }
 
@@ -367,7 +367,7 @@ function displayNoResults() {
     const rows = document.getElementById("main_table");
     let contactItem = document.createElement("tr");
     contactItem.setAttribute("id", "search-entry");
-                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
+    //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
     let a = document.createElement("td");
     let b = document.createElement("td");
@@ -385,10 +385,10 @@ function displayNoResults() {
 }
 
 function incrementPagination() {
-    
+
     console.log("im here!");
 
-    if (_SEARCH_TABLE._size <= 0) {return;} // false alarm
+    if (_SEARCH_TABLE._size <= 0) { return; } // false alarm
     _PAGE_COUNTER++;
     const field = document.getElementById("searchInput").value;
     query(field);
@@ -400,7 +400,7 @@ function addSortRow() {
     const rows = document.getElementById("main_table");
     let contactItem = document.createElement("tr");
     contactItem.setAttribute("id", "search-entry");
-                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
+    //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
     let first = document.createElement("td");
     let second = document.createElement("td");
@@ -442,7 +442,7 @@ function addSortRow() {
         third.appendChild(nexButton);
     }
     */
-    
+
     contactItem.appendChild(first);
     contactItem.appendChild(second);
     contactItem.appendChild(third);
@@ -471,10 +471,11 @@ function display() {
 
 function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem) {
     let editButton = document.createElement("button");
-    editButton.innerText = "Edit";
+    editButton.setAttribute("id", "edit-button");
+    //editButton.innerText = "Edit";
 
     editButton.addEventListener("click", () => {
-        
+
         firstNameTd.setAttribute("contenteditable", "true");
         lastNameTd.setAttribute("contenteditable", "true");
         phoneTd.setAttribute("contenteditable", "true");
@@ -492,7 +493,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                     emailTd.childNodes[0].textContent,
                     item.id,
                 );
-                if (res < 0) {return;}
+                if (res < 0) { return; }
 
                 firstNameTd.setAttribute("contenteditable", "false");
                 lastNameTd.setAttribute("contenteditable", "false");
@@ -519,7 +520,8 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
 
 function deleteButtonHandler(contactItem, item) {
     deleteButton = document.createElement("button");
-    deleteButton.innerText = "Delete";
+    deleteButton.setAttribute("id", "delete-button");
+    //deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
         if (window.confirm("Really delete this contact?")) {
             doDelete(item.id);
@@ -531,7 +533,7 @@ function deleteButtonHandler(contactItem, item) {
 
 function showHint(target, message = "Error", type = "generic-error-hint") {
     if (document.querySelector("#" + type) == null) {
-        
+
         let hint = document.createElement("div");
         hint.setAttribute("id", type);
         hint.setAttribute("contenteditable", "false");
@@ -552,7 +554,7 @@ function showHint(target, message = "Error", type = "generic-error-hint") {
 
 
 function hideHint(id) {
-    
+
     const hint = document.getElementById(id);
     hint.remove();
 }
@@ -568,38 +570,38 @@ function attachListeners(phoneTd, emailTd, id) {
         } catch (err) {
             input = "";
         }
-        
+
         if (!validatePhoneNumber(input) && input.length > 1) {
-            
+
             console.log(input);
             phoneTd.style.outlineColor = "red";
-            showHint(phoneTd, "Invalid phone format", "phone-hint-error"+id);
-            
+            showHint(phoneTd, "Invalid phone format", "phone-hint-error" + id);
+
         } else {
-            hideHint("phone-hint-error"+id);
+            hideHint("phone-hint-error" + id);
             if (input.length > 1) {
                 phoneTd.style.outlineColor = "green";
             } else {
                 phoneTd.style.outlineColor = "red";
             }
-            
+
         }
     });
 
     emailTd.addEventListener('input', function () {
         const input = emailTd.childNodes[0].textContent;
         if (!validateEmail(input) && input.length > 1) {
-            showHint(emailTd, "Invalid email format", "email-hint-error"+id);
+            showHint(emailTd, "Invalid email format", "email-hint-error" + id);
             emailTd.style.outlineColor = "red";
         } else {
-            hideHint("email-hint-error"+id);
+            hideHint("email-hint-error" + id);
             if (input.length > 1) {
                 emailTd.style.outlineColor = "green";
             } else {
                 emailTd.style.outlineColor = "red";
             }
-            
-    }
+
+        }
     });
 }
 
@@ -613,11 +615,11 @@ function query(field) {
     // read in the search query from the input text box
     let searchString = field;
     // clear any previous search results
-    
+
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return; }
-    console.log("max page size: "+ MAX_PAGE_SIZE);
-    let tmp = {pageNumber: _PAGE_COUNTER, pageSize:MAX_PAGE_SIZE, search: searchString, userId: userId };
+    console.log("max page size: " + MAX_PAGE_SIZE);
+    let tmp = { pageNumber: _PAGE_COUNTER, pageSize: MAX_PAGE_SIZE, search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/PaginatedSearchContact." + extension;
     let xhr = new XMLHttpRequest();
@@ -633,28 +635,28 @@ function query(field) {
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
                     //const contactsContainer = document.getElementById("contactsContainer");
-                    
+
 
                     searchResults.forEach(item => {
                         let contactItem = document.createElement("tr");
-                    
+
                         contactItem.setAttribute("id", "search-entry");
                         //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
                         let firstNameTd = document.createElement("td");
                         let lastNameTd = document.createElement("td");
                         let phoneTd = document.createElement("td");
-                        phoneTd.setAttribute("id","phoneField");
+                        phoneTd.setAttribute("id", "phoneField");
                         let emailTd = document.createElement("td");
-                        emailTd.setAttribute("id","emailField");
+                        emailTd.setAttribute("id", "emailField");
                         let buttons = document.createElement("td");
 
                         firstNameTd.textContent = `${item.firstName}`;
                         lastNameTd.textContent = `${item.lastName}`;
                         phoneTd.textContent = `${item.phone}`;
                         emailTd.textContent = `${item.email}`;
-                        attachListeners(phoneTd,emailTd, item.id);
-                    
+                        attachListeners(phoneTd, emailTd, item.id);
+
 
                         contactItem.appendChild(firstNameTd);
                         contactItem.appendChild(lastNameTd);
@@ -666,10 +668,10 @@ function query(field) {
                         buttons.appendChild(deleteButton);
 
                         // make the edit button for this contact.
-                        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item,contactItem);
+                        editButton = editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem);
                         buttons.appendChild(editButton);
                         contactItem.appendChild(buttons);
-                        let entry = new SearchEntry(item.firstName,item.lastName, contactItem);
+                        let entry = new SearchEntry(item.firstName, item.lastName, contactItem);
                         console.log("pushed back");
                         _SEARCH_TABLE.push_back(entry);
 
@@ -679,7 +681,7 @@ function query(field) {
                     if (_PAGE_COUNTER == 1) {
                         displayNoResults();
                     }
-                   
+
                 }
 
             }
@@ -745,7 +747,8 @@ function search(field) {
 
                         // make the delete button for this contact.
                         deleteButton = document.createElement("button");
-                        deleteButton.innerText = "Delete";
+                        deleteButton.setAttribute("id", "delete-button");
+                        //deleteButton.innerText = "Delete";
                         deleteButton.addEventListener("click", () => {
                             if (window.confirm("Really delete this contact?")) {
                                 doDelete(item.id);
@@ -756,7 +759,8 @@ function search(field) {
 
                         // make the edit button for this contact.
                         editButton = document.createElement("button");
-                        editButton.innerText = "Edit";
+                        editButton.setAttribute("id", "edit-button");
+                        //editButton.innerText = "Edit";
                         editButton.addEventListener("click", () => {
                             // allow the user to edit the text in the various fields.
                             firstNameTd.setAttribute("contenteditable", "true");
@@ -806,7 +810,7 @@ function addContact() {
     } catch (err) {
         window.alert("You are no longer signed in, please sign in again");
     }
-    
+
     if (userId < 0) { window.alert("You are no longer signed in, please sign in again"); return; }
 
 
@@ -839,7 +843,7 @@ function addContact() {
         xhr.send(jsonPayload);
     }
     catch (err) {
-        window.alert("Oops error message:" +err);
+        window.alert("Oops error message:" + err);
         console.log(err);
     }
 
