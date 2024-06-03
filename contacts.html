@@ -28,6 +28,7 @@
             const phoneTd = document.getElementById("phoneField");
             const emailTd = document.getElementById("emailField");
             MAX_PAGE_SIZE = calculateRows();
+            setUpContactsPage();
 
             if (emailInput && errorEmail && phoneField) {
                 emailInput.addEventListener('input', function () {
