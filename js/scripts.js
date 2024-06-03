@@ -14,6 +14,7 @@ function invalidLoginAnimation() {
 function setUpContactsPage() {
     const container = document.getElementById('entry_table');
     container.style.maxHeight = window.innerHeight;
+    
 }
 
 function doLogin() {
@@ -444,8 +445,6 @@ function addSortRow() {
 }
 
 function display() {
-    const e = document.getElementById("debugResult");
-    e.textContent = _SEARCH_TABLE._size;
 
     if (typeof _SEARCH_TABLE == 'undefined') {
         console.log("Something weird happened?");
