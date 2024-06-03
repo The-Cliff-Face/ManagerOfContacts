@@ -472,6 +472,7 @@ function display() {
 function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem) {
     let editButton = document.createElement("button");
     editButton.setAttribute("id", "edit-button");
+    editButton.setAttribute("aria-label", "Edit Contact");
     //editButton.innerText = "Edit";
 
     editButton.addEventListener("click", () => {
@@ -521,6 +522,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
 function deleteButtonHandler(contactItem, item) {
     deleteButton = document.createElement("button");
     deleteButton.setAttribute("id", "delete-button");
+    deleteButton.setAttribute("aria-label", "Delete Contact");
     //deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
         if (window.confirm("Really delete this contact?")) {
@@ -748,6 +750,7 @@ function search(field) {
                         // make the delete button for this contact.
                         deleteButton = document.createElement("button");
                         deleteButton.setAttribute("id", "delete-button");
+                        deleteButton.setAttribute("aria-label", "Delete Contact");
                         //deleteButton.innerText = "Delete";
                         deleteButton.addEventListener("click", () => {
                             if (window.confirm("Really delete this contact?")) {
@@ -760,6 +763,7 @@ function search(field) {
                         // make the edit button for this contact.
                         editButton = document.createElement("button");
                         editButton.setAttribute("id", "edit-button");
+                        editButton.setAttribute("aria-label", "Edit Contact");
                         //editButton.innerText = "Edit";
                         editButton.addEventListener("click", () => {
                             // allow the user to edit the text in the various fields.
