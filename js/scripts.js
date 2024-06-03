@@ -304,7 +304,7 @@ function debug_search() {
         let emailTd = document.createElement("td");
         let buttons = document.createElement("td");
 
-        attachListeners(phoneTd,emailTd);
+        attachListeners(phoneTd,emailTd, i);
 
         firstNameTd.textContent = 'Johnathan';
         lastNameTd.textContent = 'Doe';
@@ -551,19 +551,15 @@ function showHint(target, message = "Error", type = "generic-error-hint") {
 }
 
 
-function hideHint(target, id) {
-    console.log("hiding");
-    for (let node of target.childNodes) {
-        if (node.nodeType === Node.ELEMENT_NODE && node.id === id) {
-            target.removeChild(node);
-            break;
-        }
-    }
+function hideHint(id) {
+    
+    const hint = document.getElementById(id);
+    hint.remove();
 }
 
 
 
-function attachListeners(phoneTd, emailTd, item) {
+function attachListeners(phoneTd, emailTd, id) {
 
     phoneTd.addEventListener('input', function () {
         let input = "";
@@ -577,10 +573,10 @@ function attachListeners(phoneTd, emailTd, item) {
             
             console.log(input);
             phoneTd.style.outlineColor = "red";
-            showHint(phoneTd, "Invalid phone format", "phone-hint-error");
+            showHint(phoneTd, "Invalid phone format", "phone-hint-error"+id);
             
         } else {
-            hideHint(phoneTd, "phone-hint-error");
+            hideHint("phone-hint-error"+id);
             if (input.length > 1) {
                 phoneTd.style.outlineColor = "green";
             } else {
@@ -593,10 +589,10 @@ function attachListeners(phoneTd, emailTd, item) {
     emailTd.addEventListener('input', function () {
         const input = emailTd.childNodes[0].textContent;
         if (!validateEmail(input) && input.length > 1) {
-            showHint(emailTd, "Invalid email format", "email-hint-error");
+            showHint(emailTd, "Invalid email format", "email-hint-error"+id);
             emailTd.style.outlineColor = "red";
         } else {
-            hideHint(emailTd, "email-hint-error");
+            hideHint("email-hint-error"+id);
             if (input.length > 1) {
                 emailTd.style.outlineColor = "green";
             } else {
@@ -657,7 +653,7 @@ function query(field) {
                         lastNameTd.textContent = `${item.lastName}`;
                         phoneTd.textContent = `${item.phone}`;
                         emailTd.textContent = `${item.email}`;
-                        attachListeners(phoneTd,emailTd);
+                        attachListeners(phoneTd,emailTd, item.id);
                     
 
                         contactItem.appendChild(firstNameTd);
