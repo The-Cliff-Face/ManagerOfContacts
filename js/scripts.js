@@ -11,6 +11,11 @@ function invalidLoginAnimation() {
 
 }
 
+function setUpContactsPage() {
+    const container = document.getElementById('entry_table');
+    container.style.maxHeight = window.innerHeight;
+}
+
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -179,13 +184,13 @@ function signupCheck(username, firstname, lastname, password) {
 }
 
 function calculateRows() {
-    let windowHeight = 800;
+    let windowHeight = window.innerHeight;
     let tableRow = document.querySelector('#main_table'); 
     let tableRowStyles = window.getComputedStyle(tableRow);
     let tableRowFontSize = parseFloat(tableRowStyles.getPropertyValue('font-size'));
-    let rowHeight = tableRowFontSize + 5;
+    let rowHeight = tableRowFontSize + 15;
     let maxRows = Math.floor(windowHeight / rowHeight);
-    console.log(rowHeight)
+    console.log(maxRows)
     return maxRows
 }
 
@@ -277,8 +282,9 @@ function doEdit(firstName, lastName, phone, email, contactId) {
 function debug_search() {
     clearSearchEntryField();
     const rows = document.getElementById("main_table");
+    console.log(MAX_PAGE_SIZE);
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < MAX_PAGE_SIZE; i++) {
         let contactItem = document.createElement("tr");
         contactItem.setAttribute("id", "search-entry-" + i);
         
