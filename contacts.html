@@ -21,7 +21,7 @@
         let prevScrollPosition = 0;
 
 
-        
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const emailInput = document.getElementById('addEmailInput');
@@ -31,7 +31,7 @@
             const phoneTd = document.getElementById("phoneField");
             const emailTd = document.getElementById("emailField");
             MAX_PAGE_SIZE = calculateRows();
-            
+
             if (emailInput && errorEmail && phoneField) {
                 emailInput.addEventListener('input', function () {
                     const input = this.value;
@@ -57,24 +57,24 @@
                 console.log("moved");
                 const currentScrollTop = tableScroll.scrollTop;
                 if (currentScrollTop > prevScrollPosition) {
-                    prevScrollPosition  = currentScrollTop;
+                    prevScrollPosition = currentScrollTop;
                     console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
-                    if (QUERY_SET.has(_PAGE_COUNTER)) {return;}
+                    if (QUERY_SET.has(_PAGE_COUNTER)) { return; }
                     query(field);
                     QUERY_SET.add(_PAGE_COUNTER);
-                    
+
                 } else {
                     console.log("up");
-                    prevScrollPosition  = currentScrollTop;
+                    prevScrollPosition = currentScrollTop;
                     _PAGE_COUNTER--;
 
                 }
-                
+
             });
 
-            window.addEventListener('resize',  function () {
+            window.addEventListener('resize', function () {
                 MAX_PAGE_SIZE = calculateRows();
             });
         });
@@ -91,10 +91,11 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i class="fa fa-search"></i></button> 
+                    id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i
+                        class="fa fa-search"></i></button>
             </label>
-            <button onclick="searchWrapper(true);">
-                Search All
+            <button id="refresh-button" onclick="searchWrapper(true);">
+                <i class="fa fa-refresh"></i>
             </button>
             <label id="debugResult"></label>
 
