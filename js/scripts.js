@@ -516,25 +516,30 @@ function deleteButtonHandler(contactItem, item) {
     return deleteButton;
 }
 
-function showHint(target, message = "Error", type= "generic-error-hint") {
-    if (document.querySelector("#"+type) == null) {
+function showHint(target, message = "Error", type = "generic-error-hint") {
+    if (document.querySelector("#" + type) == null) {
+        
         let hint = document.createElement("div");
         hint.setAttribute("id", type);
         hint.setAttribute("contenteditable", "false");
-        
-        
         let text = document.createElement("span");
         text.textContent = message;
         hint.appendChild(text);
         hint.className = "hint-message";
         hint.classList.add("show");
         hint.classList.add("animated");
-        target.appendChild(hint);
+        document.body.appendChild(hint);
+        let targetRect = target.getBoundingClientRect();
+        hint.style.position = "absolute";
+        hint.style.left = targetRect.left + "px";
+        hint.style.top = (targetRect.bottom + window.scrollY) + "px";
+        document.body.appendChild(hint);
     }
-    
 }
 
+
 function hideHint(target, id) {
+    console.log("hiding");
     for (let node of target.childNodes) {
         if (node.nodeType === Node.ELEMENT_NODE && node.id === id) {
             target.removeChild(node);
@@ -602,7 +607,7 @@ function query(field) {
     
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return; }
-
+    console.log("max page size: "+ MAX_PAGE_SIZE);
     let tmp = {pageNumber: _PAGE_COUNTER, pageSize:MAX_PAGE_SIZE, search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/PaginatedSearchContact." + extension;
