@@ -264,6 +264,10 @@ function doDelete(contactId) {
 }
 
 function doEdit(firstName, lastName, phone, email, contactId) {
+    if (!validatePhoneNumber(phone) || !validateEmail(email)) {
+        window.alert("Invalid format of phone or email!");
+        return;
+    }
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, contactId: contactId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/EditContact." + extension;
@@ -275,6 +279,7 @@ function doEdit(firstName, lastName, phone, email, contactId) {
         xhr.send(jsonPayload);
     }
     catch (err) {
+        window.alert(err.message);
         console.log(err);
     }
 }
