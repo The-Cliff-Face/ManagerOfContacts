@@ -376,6 +376,7 @@ tr:last-child td:last-child {
 }
 
 .table-container {
+    max-height: 100%;
     overflow: auto;
 }
 
