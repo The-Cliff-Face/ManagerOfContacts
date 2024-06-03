@@ -52,10 +52,10 @@
                 });
             }
 
-            const tableScroll = document.getElementById("contacts-container");
-            tableScroll.addEventListener("scroll", function () {
+            //const tableScroll = document.getElementById("entry_table");
+            document.addEventListener("scroll", function () {
                 console.log("moved");
-                const currentScrollTop = tableScroll.scrollTop;
+                const currentScrollTop = document.scrollTop;
                 if (currentScrollTop > prevScrollPosition) {
                     prevScrollPosition = currentScrollTop;
                     console.log("down");
