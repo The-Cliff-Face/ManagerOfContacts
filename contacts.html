@@ -17,7 +17,7 @@
         let _SEARCH_TABLE = new SearchTable();
         let QUERY_SET = new Set();
         let _PAGE_COUNTER = 1;
-        const MAX_PAGE_SIZE = 10;
+        let MAX_PAGE_SIZE = 10;
         let prevScrollPosition = 0;
 
 
@@ -30,6 +30,7 @@
             const phoneField = document.getElementById('addPhoneInput')
             const phoneTd = document.getElementById("phoneField");
             const emailTd = document.getElementById("emailField");
+            MAX_PAGE_SIZE = calculateRows();
             
             if (emailInput && errorEmail && phoneField) {
                 emailInput.addEventListener('input', function () {
@@ -72,6 +73,10 @@
                 }
                 
             });
+
+            window.addEventListener('resize',  function () {
+                MAX_PAGE_SIZE = calculateRows();
+            });
         });
 
 
@@ -86,7 +91,7 @@
             <label>
                 Search:
                 <input type="search" id="searchInput" placeholder="First or last name" required /><button type="submit"
-                    id="searchButton" aria-label="Search" onclick="searchWrapper(false);"><i class="fa fa-search"></i></button> 
+                    id="searchButton" aria-label="Search" onclick="debug_search();"><i class="fa fa-search"></i></button> 
             </label>
             <button onclick="searchWrapper(true);">
                 Search All
@@ -100,7 +105,7 @@
                 <table class="rows" id="main_table" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>First</th>
+                            <th id="first_row_element">First</th>
                             <th>Last</th>
                             <th>Phone</th>
                             <th>Email</th>
