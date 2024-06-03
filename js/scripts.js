@@ -178,6 +178,16 @@ function signupCheck(username, firstname, lastname, password) {
     }
 }
 
+function calculateRows() {
+    let windowHeight = window.innerHeight;
+    let tableRow = document.querySelector('#main_table'); 
+    let tableRowStyles = window.getComputedStyle(tableRow);
+    let tableRowFontSize = parseFloat(tableRowStyles.getPropertyValue('font-size'));
+    let rowHeight = tableRowFontSize + 5;
+    let maxRows = Math.floor(windowHeight / rowHeight);
+    console.log(rowHeight)
+    return maxRows
+}
 
 
 function saveCookie(user_cookie) {
@@ -271,9 +281,7 @@ function debug_search() {
     for (let i = 0; i < 50; i++) {
         let contactItem = document.createElement("tr");
         contactItem.setAttribute("id", "search-entry-" + i);
-        if (i%2==0) {
-            contactItem.style.background = "#facc93";
-        }
+        
         
         let firstNameTd = document.createElement("td");
         let lastNameTd = document.createElement("td");
@@ -513,10 +521,14 @@ function showHint(target, message = "Error", type= "generic-error-hint") {
         let hint = document.createElement("div");
         hint.setAttribute("id", type);
         hint.setAttribute("contenteditable", "false");
+        
+        
         let text = document.createElement("span");
         text.textContent = message;
         hint.appendChild(text);
         hint.className = "hint-message";
+        hint.classList.add("show");
+        hint.classList.add("animated");
         target.appendChild(hint);
     }
     
@@ -534,27 +546,45 @@ function hideHint(target, id) {
 
 
 function attachListeners(phoneTd, emailTd, item) {
+
     phoneTd.addEventListener('input', function () {
+        let input = "";
+        try {
+            input = phoneTd.childNodes[0].textContent;
+        } catch (err) {
+            input = "";
+        }
         
-        const input = phoneTd.childNodes[0].textContent;
-        if (!validatePhoneNumber(input)) {
+        if (!validatePhoneNumber(input) && input.length > 1) {
+            
             console.log(input);
             phoneTd.style.outlineColor = "red";
             showHint(phoneTd, "Invalid phone format", "phone-hint-error");
+            
         } else {
             hideHint(phoneTd, "phone-hint-error");
-            phoneTd.style.outlineColor = "green";
+            if (input.length > 1) {
+                phoneTd.style.outlineColor = "green";
+            } else {
+                phoneTd.style.outlineColor = "red";
+            }
+            
         }
     });
 
     emailTd.addEventListener('input', function () {
         const input = emailTd.childNodes[0].textContent;
-        if (!validateEmail(input)) {
+        if (!validateEmail(input) && input.length > 1) {
             showHint(emailTd, "Invalid email format", "email-hint-error");
             emailTd.style.outlineColor = "red";
         } else {
             hideHint(emailTd, "email-hint-error");
-            emailTd.style.outlineColor = "green";
+            if (input.length > 1) {
+                emailTd.style.outlineColor = "green";
+            } else {
+                emailTd.style.outlineColor = "red";
+            }
+            
     }
     });
 }
@@ -589,12 +619,11 @@ function query(field) {
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
                     //const contactsContainer = document.getElementById("contactsContainer");
-                    counter = 0;
+                    
 
                     searchResults.forEach(item => {
                         let contactItem = document.createElement("tr");
-                        if (counter % 2 == 0) {contactItem.style.background = "#facc93";} 
-                        counter+=1;
+                    
                         contactItem.setAttribute("id", "search-entry");
                         //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
 
