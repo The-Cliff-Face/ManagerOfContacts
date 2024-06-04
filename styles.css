@@ -381,7 +381,7 @@ tr:last-child td:last-child {
 }
 
 .table-scroll {
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .hint {
