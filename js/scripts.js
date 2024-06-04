@@ -710,7 +710,7 @@ function query(field) {
             // search requires that we actually do something with the response.
             if (this.readyState == 4 && this.status == 200) {
                 let searchResults = JSON.parse(xhr.responseText).results;
-
+            
                 // id will be 0 if there are no records found
                 if (searchResults[0].id > 1) // the search actually returned results
                 {
@@ -718,6 +718,7 @@ function query(field) {
 
 
                     searchResults.forEach(item => {
+                        if (item.firstName === "") {return;}
                         let contactItem = document.createElement("tr");
 
                         contactItem.setAttribute("id", "search-entry");
