@@ -538,6 +538,12 @@ td button:active {
     box-shadow: 1px 1px 1px #000000;
 }
 
+td button#addButton:before {
+    font-family: "FontAwesome";
+    content: "\f234";
+    font-size: large;
+}
+
 td button#edit-button:after {
     font-family: "FontAwesome";
     content: "\f040";
