@@ -550,10 +550,20 @@ td button#delete-button:after {
     font-size: x-large;
 }
 
+td button#delete-button {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
 td button#save-button:after {
     font-family: "FontAwesome";
     content: "\f0c7";
     font-size: x-large;
+}
+
+td button#saveButton {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 /* Search Bar */
