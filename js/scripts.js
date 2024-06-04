@@ -464,7 +464,10 @@ function display() {
     addSortRow();
     const rows = document.getElementById("main_table");
     for (const row of _SEARCH_TABLE._stack) {
-        rows.appendChild(row._contactItem);
+        if (row._firstname !== "") {
+            rows.appendChild(row._contactItem);
+        }
+        
     }
 }
 
@@ -807,16 +810,21 @@ function search(field) {
     }
 }
 
+function changeAddContactResultButton(message) {
+    document.getElementById('addButton').innerText = message;
+    setTimeout(function() {document.getElementById('addButton').innerText = 'Add Contact';}, 2000);
+}
+
 
 function addContact() {
     let userId = -1;
     try {
         userId = getUserId();
     } catch (err) {
-        window.alert("You are no longer signed in, please sign in again");
+        changeAddContactResultButton("failed");
     }
 
-    if (userId < 0) { window.alert("You are no longer signed in, please sign in again"); return; }
+    if (userId < 0) { changeAddContactResultButton("failed"); return; }
 
 
     let firstName = document.getElementById("addFirstNameInput").value;
@@ -824,14 +832,17 @@ function addContact() {
     let phone = document.getElementById("addPhoneInput").value;
     let email = document.getElementById("addEmailInput").value;
 
-    if (!validatePhoneNumber(phone) && !validateEmail(email)) {
+    if (!validatePhoneNumber(phone) || !validateEmail(email)) {
         //window.alert("Invalid formatting of email / phone");
+        changeAddContactResultButton("Invalid!");
+        
         return; // TODO: add some sort of error message
     }
 
     // avoid processing blank names
     if (firstName === "" || lastName === "") {
         //window.alert("You cannot have blank first or last names");
+        changeAddContactResultButton("Invalid!");
         return; // TODO: add some sort of error message
     }
 
@@ -848,7 +859,7 @@ function addContact() {
         xhr.send(jsonPayload);
     }
     catch (err) {
-        window.alert("Oops error message:" + err);
+        changeAddContactResultButton("failed");
         console.log(err);
     }
 
@@ -857,7 +868,6 @@ function addContact() {
     document.getElementById("addLastNameInput").value = "";
     document.getElementById("addPhoneInput").value = "";
     document.getElementById("addEmailInput").value = "";
-    window.alert("Successfully Added Contact");
-    document.getElementById('addButton').innerText = 'Success!';
-    setTimeout(function() {document.getElementById('addButton').innerText = 'Add Contact';}, 2000);
+    changeAddContactResultButton("Success!");
+    
 }
