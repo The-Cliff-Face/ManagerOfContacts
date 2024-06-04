@@ -621,6 +621,7 @@ function query(field) {
     let userId = getUserId();
     if (userId < 0) { console.log("failed"); return; }
     console.log("max page size: " + MAX_PAGE_SIZE);
+    console.log("pageNumber: " + _PAGE_COUNTER);
     let tmp = { pageNumber: _PAGE_COUNTER, pageSize: MAX_PAGE_SIZE, search: searchString, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + "/PaginatedSearchContact." + extension;
