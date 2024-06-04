@@ -50,58 +50,50 @@
                     }
                 });
             }
+            
 
-            //const tableScroll = document.getElementById("entry_table");
-            /*
+            const tableScroll = document.getElementById("entry_table");
+            
             document.addEventListener("scroll", function () {
-                console.log("moved");
-                const currentScrollTop = tableScroll.scrollTop;
-                if (currentScrollTop > prevScrollPosition) {
-                    prevScrollPosition = currentScrollTop;
-                    console.log("down");
+                const currentScrollTop = window.pageYOffset;
+                if (currentScrollTop > maxScrollPosition) {
+                    maxScrollPosition = currentScrollTop;    
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
                     if (QUERY_SET.has(_PAGE_COUNTER)) { return; }
                     query(field);
                     QUERY_SET.add(_PAGE_COUNTER);
 
-                } else {
-                    console.log("up");
-                    prevScrollPosition = currentScrollTop;
-                    _PAGE_COUNTER--;
-
                 }
 
             });
-            */
+            
+
+            /*
             const tableScroll = document.getElementById("entry_table");
 
             tableScroll.addEventListener("scroll", function () {
 
                 const currentScrollTop = tableScroll.scrollTop;
-                console.log(`${maxScrollPosition} ${currentScrollTop}`);
+
                 if (currentScrollTop > maxScrollPosition) {
                     maxScrollPosition = currentScrollTop;
-                    console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
                     if (QUERY_SET.has(_PAGE_COUNTER)) { return; }
                     query(field);
                     QUERY_SET.add(_PAGE_COUNTER);
-
-                } else {
-                    console.log("up");
-                    /*prevScrollPosition = currentScrollTop;
-                    _PAGE_COUNTER--;*/
-
-                }
+                } 
 
             });
-            /*
+            */
+            
+
+            
             window.addEventListener('resize', function () {
                 MAX_PAGE_SIZE = calculateRows();
             });
-            */
+            
         });
 
 

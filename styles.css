@@ -376,7 +376,7 @@ tr:last-child td:last-child {
 }
 
 .table-container {
-    max-height: 800px;
+    /*max-height: 800px;*/
     overflow: auto;
 }
 
