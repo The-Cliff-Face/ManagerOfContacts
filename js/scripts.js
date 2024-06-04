@@ -477,6 +477,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
     editButton.setAttribute("id", "edit-button");
     editButton.setAttribute("title", "Edit this contact");
     editButton.setAttribute("aria-label", "Edit Contact");
+    
     //editButton.innerText = "Edit";
 
 
@@ -535,6 +536,9 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                 phoneTd.childNodes[0].textContent = old['phoneTd'];
                 emailTd.childNodes[0].textContent = old['emailTd'];
 
+                hideHint("phone-hint-error"+item.id);
+                hideHint("email-hint-error"+item.id);
+                
                 let newDeleteButton = deleteButtonHandler(contactItem, item);
                 // Create new edit button and attach event listener
                 let newEditButton = editButtonHandler(buttons, newDeleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
@@ -565,6 +569,8 @@ function deleteButtonHandler(contactItem, item) {
         if (window.confirm("Really delete this contact?")) {
             doDelete(item.id);
             contactItem.remove();
+            hideHint("phone-hint-error"+item.id);
+            hideHint("email-hint-error"+item.id);
         }
     });
     return deleteButton;
@@ -593,9 +599,11 @@ function showHint(target, message = "Error", type = "generic-error-hint") {
 
 
 function hideHint(id) {
-
-    const hint = document.getElementById(id);
-    hint.remove();
+    console.log(id);
+    if (document.querySelector("#" + id) != null) {
+        const hint = document.getElementById(id);
+        hint.remove();
+    }
 }
 
 
