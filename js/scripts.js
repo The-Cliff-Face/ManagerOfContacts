@@ -265,7 +265,7 @@ function doDelete(contactId) {
 
 function doEdit(firstName, lastName, phone, email, contactId) {
     if (!validatePhoneNumber(phone) || !validateEmail(email)) {
-        window.alert("Invalid format of phone or email!");
+        //window.alert("Invalid format of phone or email!");
         return -1;
     }
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, contactId: contactId };
@@ -825,13 +825,13 @@ function addContact() {
     let email = document.getElementById("addEmailInput").value;
 
     if (!validatePhoneNumber(phone) && !validateEmail(email)) {
-        window.alert("Invalid formatting of email / phone");
+        //window.alert("Invalid formatting of email / phone");
         return; // TODO: add some sort of error message
     }
 
     // avoid processing blank names
     if (firstName === "" || lastName === "") {
-        window.alert("You cannot have blank first or last names");
+        //window.alert("You cannot have blank first or last names");
         return; // TODO: add some sort of error message
     }
 
@@ -858,4 +858,6 @@ function addContact() {
     document.getElementById("addPhoneInput").value = "";
     document.getElementById("addEmailInput").value = "";
     window.alert("Successfully Added Contact");
+    document.getElementById('addButton').innerText = 'Success!';
+    setTimeout(function() {document.getElementById('addButton').innerText = 'Add Contact';}, 2000);
 }
