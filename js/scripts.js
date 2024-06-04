@@ -469,6 +469,25 @@ function display() {
     }
 }
 
+function unselectMe(firstNameTd, lastNameTd, phoneTd, emailTd) {
+    firstNameTd.setAttribute("contenteditable", "false");
+    lastNameTd.setAttribute("contenteditable", "false");
+    phoneTd.setAttribute("contenteditable", "false");
+    emailTd.setAttribute("contenteditable", "false");
+
+    firstNameTd.style.outline = "";
+    firstNameTd.style.borderRadius = "";
+    
+    lastNameTd.style.outline = "";
+    lastNameTd.style.borderRadius = "";
+    
+    phoneTd.style.outline = "";
+    phoneTd.style.borderRadius = "";
+    
+    emailTd.style.outline = "";
+    emailTd.style.borderRadius = "";
+}
+
 
 function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem) {
     let editButton = document.createElement("button");
@@ -486,11 +505,22 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
             "phoneTd": phoneTd.childNodes[0].textContent,
             "emailTd": emailTd.childNodes[0].textContent,
         }
-
+        const outlineColor = "#66baff"
         firstNameTd.setAttribute("contenteditable", "true");
+        firstNameTd.style.outline = "2px inset "+ outlineColor;
+        firstNameTd.style.borderRadius = "5px";
+        
         lastNameTd.setAttribute("contenteditable", "true");
+        lastNameTd.style.outline = "2px inset " + outlineColor;
+        lastNameTd.style.borderRadius = "5px";
+
         phoneTd.setAttribute("contenteditable", "true");
+        phoneTd.style.outline = "2px inset " + outlineColor;
+        phoneTd.style.borderRadius = "5px";
+
         emailTd.setAttribute("contenteditable", "true");
+        emailTd.style.outline = "2px inset "+ outlineColor;
+        emailTd.style.borderRadius = "5px";
 
         if (document.querySelector("#saveButton") == null) {
             let saveButton = document.createElement("button");
@@ -510,6 +540,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                     showHint(saveButton,"Error has Occured", "save-error-result");
                     hideHint("phone-hint-error"+item.id);
                     hideHint("email-hint-error"+item.id); 
+                    unselectMe(firstNameTd, lastNameTd, phoneTd, emailTd);
                     firstNameTd.textContent = old['firstNameTd']; // lazy way of reverting 
                     lastNameTd.textContent = old['lastNameTd'];
                     phoneTd.childNodes[0].textContent = old['phoneTd'];
@@ -518,10 +549,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                     return; 
                 }
 
-                firstNameTd.setAttribute("contenteditable", "false");
-                lastNameTd.setAttribute("contenteditable", "false");
-                phoneTd.setAttribute("contenteditable", "false");
-                emailTd.setAttribute("contenteditable", "false");
+                unselectMe(firstNameTd, lastNameTd, phoneTd, emailTd);
 
                 // Create new delete button
                 let newDeleteButton = deleteButtonHandler(contactItem, item);
@@ -533,10 +561,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                 cancelButton.remove();
             });
             cancelButton.addEventListener("click", () => {
-                firstNameTd.setAttribute("contenteditable", "false");
-                lastNameTd.setAttribute("contenteditable", "false");
-                phoneTd.setAttribute("contenteditable", "false");
-                emailTd.setAttribute("contenteditable", "false");
+                unselectMe(firstNameTd, lastNameTd, phoneTd, emailTd);
 
                 firstNameTd.textContent = old['firstNameTd'];
                 lastNameTd.textContent = old['lastNameTd'];
