@@ -265,7 +265,6 @@ function doDelete(contactId) {
 
 function doEdit(firstName, lastName, phone, email, contactId) {
     if (!validatePhoneNumber(phone) || !validateEmail(email)) {
-        //window.alert("Invalid format of phone or email!");
         return -1;
     }
     let tmp = { firstName: firstName, lastName: lastName, phone: phone, email: email, contactId: contactId };
@@ -279,7 +278,6 @@ function doEdit(firstName, lastName, phone, email, contactId) {
         xhr.send(jsonPayload);
     }
     catch (err) {
-        window.alert(err.message);
         console.log(err);
         return -1;
     }
@@ -480,7 +478,6 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
     
     //editButton.innerText = "Edit";
 
-
     editButton.addEventListener("click", () => {
 
         old = {
@@ -509,7 +506,17 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                     emailTd.childNodes[0].textContent,
                     item.id,
                 );
-                if (res < 0) { return; }
+                if (res < 0) { 
+                    showHint(saveButton,"Error has Occured", "save-error-result");
+                    hideHint("phone-hint-error"+item.id);
+                    hideHint("email-hint-error"+item.id); 
+                    firstNameTd.textContent = old['firstNameTd']; // lazy way of reverting 
+                    lastNameTd.textContent = old['lastNameTd'];
+                    phoneTd.childNodes[0].textContent = old['phoneTd'];
+                    emailTd.childNodes[0].textContent = old['emailTd'];
+                    setTimeout(function() {hideHint("save-error-result");}, 2000);
+                    return; 
+                }
 
                 firstNameTd.setAttribute("contenteditable", "false");
                 lastNameTd.setAttribute("contenteditable", "false");
