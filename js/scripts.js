@@ -350,7 +350,7 @@ function searchWrapper(showAllBoolean) {
         _PAGE_COUNTER = 1;
         clearSearchEntryField();
         QUERY_SET = new Set();
-        prevScrollPosition = 0;
+        maxScrollPosition = 0;
         if (showAllBoolean) { query(''); } else { query(field); }
         display();
         return;
