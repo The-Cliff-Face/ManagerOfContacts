@@ -50,14 +50,14 @@
                     }
                 });
             }
-            
+
 
             const tableScroll = document.getElementById("entry_table");
-            
+
             document.addEventListener("scroll", function () {
                 const currentScrollTop = window.pageYOffset;
                 if (currentScrollTop > maxScrollPosition) {
-                    maxScrollPosition = currentScrollTop;    
+                    maxScrollPosition = currentScrollTop;
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
                     if (QUERY_SET.has(_PAGE_COUNTER)) { return; }
@@ -67,7 +67,7 @@
                 }
 
             });
-            
+
 
             /*
             const tableScroll = document.getElementById("entry_table");
@@ -87,13 +87,13 @@
 
             });
             */
-            
 
-            
+
+
             window.addEventListener('resize', function () {
                 MAX_PAGE_SIZE = calculateRows();
             });
-            
+
         });
 
 
@@ -148,7 +148,7 @@
                                 <span id="addEmailResult"></span>
                             </td>
                             <td>
-                                <button type="submit" id="addButton" onclick="addContact();">Add Contact</button>
+                                <button type="submit" id="addButton" onclick="addContact();"> Add Contact</button>
                             </td>
                         </tr>
                         <tr></tr>

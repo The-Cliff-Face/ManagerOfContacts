@@ -538,6 +538,12 @@ td button:active {
     box-shadow: 1px 1px 1px #000000;
 }
 
+td button#addButton:before {
+    font-family: "FontAwesome";
+    content: "\f234";
+    font-size: large;
+}
+
 td button#edit-button:after {
     font-family: "FontAwesome";
     content: "\f040";
@@ -550,10 +556,20 @@ td button#delete-button:after {
     font-size: x-large;
 }
 
+td button#delete-button {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
 td button#save-button:after {
     font-family: "FontAwesome";
     content: "\f0c7";
     font-size: x-large;
+}
+
+td button#saveButton {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 /* Search Bar */
