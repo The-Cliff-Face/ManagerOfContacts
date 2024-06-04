@@ -18,7 +18,7 @@
         let QUERY_SET = new Set();
         let _PAGE_COUNTER = 1;
         let MAX_PAGE_SIZE = 10;
-        let prevScrollPosition = 0;
+        let maxScrollPosition = 0;
 
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -79,9 +79,9 @@
             tableScroll.addEventListener("scroll", function () {
 
                 const currentScrollTop = tableScroll.scrollTop;
-                console.log(`${prevScrollPosition} ${currentScrollTop}`);
-                if (currentScrollTop > prevScrollPosition) {
-                    prevScrollPosition = currentScrollTop;
+                console.log(`${maxScrollPosition} ${currentScrollTop}`);
+                if (currentScrollTop > maxScrollPosition) {
+                    maxScrollPosition = currentScrollTop;
                     console.log("down");
                     _PAGE_COUNTER++;
                     const field = document.getElementById("searchInput").value;
@@ -91,8 +91,8 @@
 
                 } else {
                     console.log("up");
-                    prevScrollPosition = currentScrollTop;
-                    _PAGE_COUNTER--;
+                    /*prevScrollPosition = currentScrollTop;
+                    _PAGE_COUNTER--;*/
 
                 }
 
