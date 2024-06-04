@@ -475,10 +475,19 @@ function display() {
 function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item, contactItem) {
     let editButton = document.createElement("button");
     editButton.setAttribute("id", "edit-button");
+    editButton.setAttribute("title", "Edit this contact");
     editButton.setAttribute("aria-label", "Edit Contact");
     //editButton.innerText = "Edit";
 
+
     editButton.addEventListener("click", () => {
+
+        old = {
+            "firstNameTd": firstNameTd.textContent,
+            "lastNameTd": lastNameTd.textContent,
+            "phoneTd": phoneTd.childNodes[0].textContent,
+            "emailTd": emailTd.childNodes[0].textContent,
+        }
 
         firstNameTd.setAttribute("contenteditable", "true");
         lastNameTd.setAttribute("contenteditable", "true");
@@ -487,6 +496,8 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
 
         if (document.querySelector("#saveButton") == null) {
             let saveButton = document.createElement("button");
+            let cancelButton = document.createElement("button");
+            cancelButton.innerHTML = "Cancel";
             saveButton.setAttribute("id", "saveButton");
             saveButton.innerText = "Save";
             saveButton.addEventListener("click", () => {
@@ -511,8 +522,30 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
                 buttons.appendChild(newDeleteButton);
                 buttons.appendChild(newEditButton);
                 saveButton.remove();
+                cancelButton.remove();
+            });
+            cancelButton.addEventListener("click", () => {
+                firstNameTd.setAttribute("contenteditable", "false");
+                lastNameTd.setAttribute("contenteditable", "false");
+                phoneTd.setAttribute("contenteditable", "false");
+                emailTd.setAttribute("contenteditable", "false");
+
+                firstNameTd.textContent = old['firstNameTd'];
+                lastNameTd.textContent = old['lastNameTd'];
+                phoneTd.childNodes[0].textContent = old['phoneTd'];
+                emailTd.childNodes[0].textContent = old['emailTd'];
+
+                let newDeleteButton = deleteButtonHandler(contactItem, item);
+                // Create new edit button and attach event listener
+                let newEditButton = editButtonHandler(buttons, newDeleteButton, firstNameTd, lastNameTd, phoneTd, emailTd, item);
+                buttons.appendChild(newDeleteButton);
+                buttons.appendChild(newEditButton);
+                saveButton.remove();
+                cancelButton.remove();
+
             });
             buttons.appendChild(saveButton);
+            buttons.appendChild(cancelButton);
         }
         deleteButton.remove();
         editButton.remove();
@@ -525,6 +558,7 @@ function editButtonHandler(buttons, deleteButton, firstNameTd, lastNameTd, phone
 function deleteButtonHandler(contactItem, item) {
     deleteButton = document.createElement("button");
     deleteButton.setAttribute("id", "delete-button");
+    deleteButton.setAttribute("title","Delete this contact");
     deleteButton.setAttribute("aria-label", "Delete Contact");
     //deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
@@ -699,116 +733,6 @@ function query(field) {
     }
 }
 
-
-
-
-function search(field) {
-    // read in the search query from the input text box
-    let searchString = field;
-    // clear any previous search results
-    clearSearchEntryField();
-    let userId = getUserId();
-    if (userId < 0) { console.log("failed"); return; }
-
-    let tmp = { search: searchString, userId: userId };
-    let jsonPayload = JSON.stringify(tmp);
-    let url = urlBase + "/SearchContact." + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function () {
-            // search requires that we actually do something with the response.
-            if (this.readyState == 4 && this.status == 200) {
-                let searchResults = JSON.parse(xhr.responseText).results;
-
-                // id will be 0 if there are no records found
-                if (searchResults[0].id > 1) // the search actually returned results
-                {
-                    //const contactsContainer = document.getElementById("contactsContainer");
-                    const rows = document.getElementById("main_table");
-
-                    searchResults.forEach(item => {
-                        // for every item, creates a new table row containing 4 table data cells (for the 4 parts of a contact.)
-                        let contactItem = document.createElement("tr");
-                        contactItem.setAttribute("id", "search-entry");
-                        //contactItem.textContent = `${item.firstName} ${item.lastName} ${item.email} ${item.phone}`;
-
-                        let firstNameTd = document.createElement("td");
-                        let lastNameTd = document.createElement("td");
-                        let phoneTd = document.createElement("td");
-                        let emailTd = document.createElement("td");
-                        let buttons = document.createElement("td");
-
-                        firstNameTd.textContent = `${item.firstName}`;
-                        lastNameTd.textContent = `${item.lastName}`;
-                        phoneTd.textContent = `${item.phone}`;
-                        emailTd.textContent = `${item.email}`;
-
-                        contactItem.appendChild(firstNameTd);
-                        contactItem.appendChild(lastNameTd);
-                        contactItem.appendChild(phoneTd);
-                        contactItem.appendChild(emailTd);
-
-                        // make the delete button for this contact.
-                        deleteButton = document.createElement("button");
-                        deleteButton.setAttribute("id", "delete-button");
-                        deleteButton.setAttribute("aria-label", "Delete Contact");
-                        //deleteButton.innerText = "Delete";
-                        deleteButton.addEventListener("click", () => {
-                            if (window.confirm("Really delete this contact?")) {
-                                doDelete(item.id);
-                                contactItem.remove();
-                            }
-                        });
-                        buttons.appendChild(deleteButton);
-
-                        // make the edit button for this contact.
-                        editButton = document.createElement("button");
-                        editButton.setAttribute("id", "edit-button");
-                        editButton.setAttribute("aria-label", "Edit Contact");
-                        //editButton.innerText = "Edit";
-                        editButton.addEventListener("click", () => {
-                            // allow the user to edit the text in the various fields.
-                            firstNameTd.setAttribute("contenteditable", "true");
-                            lastNameTd.setAttribute("contenteditable", "true");
-                            phoneTd.setAttribute("contenteditable", "true");
-                            emailTd.setAttribute("contenteditable", "true");
-
-                            // create a button to save the user's edits.
-                            if (document.querySelector("#saveButton") == null) {
-                                saveButton = document.createElement("button");
-                                saveButton.setAttribute("id", "saveButton");
-                                saveButton.innerText = "Save Edits";
-                                saveButton.addEventListener("click", () => {
-                                    doEdit(firstNameTd.innerHTML, lastNameTd.innerHTML, phoneTd.innerHTML, emailTd.innerHTML, item.id);
-
-                                    // now that the editing is done, go back to normal
-                                    firstNameTd.setAttribute("contenteditable", "false");
-                                    lastNameTd.setAttribute("contenteditable", "false");
-                                    phoneTd.setAttribute("contenteditable", "false");
-                                    emailTd.setAttribute("contenteditable", "false");
-                                    saveButton.remove();
-                                });
-                                buttons.appendChild(saveButton);
-                            }
-
-
-                        });
-                        buttons.appendChild(editButton);
-                        contactItem.appendChild(buttons);
-                        rows.appendChild(contactItem);
-                    });
-                }
-            }
-        }
-        xhr.send(jsonPayload);
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
 
 function changeAddContactResultButton(message) {
     document.getElementById('addButton').innerText = message;
